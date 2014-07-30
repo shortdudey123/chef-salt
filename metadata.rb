@@ -9,9 +9,10 @@ version          '0.1.0'
 recipe 'master', 'Installs and configures a Salt master'
 recipe 'minion', 'Installs and configures a Salt minion'
 
-%w{ ubuntu }.each do |os|
+%w(ubuntu redhat centos scientific amazon oracle).each do |os|
   supports os
 end
 
-depends 'apt',              '~> 2.0'
-depends 'yum',              '~> 2.0'
+depends 'apt',              '~> 2.3.10'
+depends 'yum',              '~> 3.0'
+depends 'yum-epel'
