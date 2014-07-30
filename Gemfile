@@ -9,3 +9,7 @@ group :integration do
   gem 'test-kitchen',    '~> 1.2'
   gem 'kitchen-vagrant', '~> 0.15'
 end
+
+group :development do
+  gem 'knife-block'
+end
