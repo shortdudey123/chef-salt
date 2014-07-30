@@ -1,0 +1,9 @@
+{
+  "name": "salt_master",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "Salt Master",
+  "run_list": [
+    "recipe[salt::master]"
+  ]
+}

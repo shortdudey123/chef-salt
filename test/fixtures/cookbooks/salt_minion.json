@@ -1,0 +1,9 @@
+{
+  "name": "salt_minion",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "Salt Minion",
+  "run_list": [
+    "recipe[salt::minion]"
+  ]
+}
