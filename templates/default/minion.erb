@@ -73,7 +73,7 @@ id: <%= node['salt']['minion']['id'] %>
 
 grains:
   environment: <%= node.chef_environment %>
-  roles:
+  role:
   <%- node['roles'].each do |role| %>
     - <%= role %>
   <%- end %>

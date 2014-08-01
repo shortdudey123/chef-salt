@@ -112,7 +112,7 @@ Minions are automatically tagged (and updated on every chef-client run) with the
 following two standard Salt [grains](http://docs.saltstack.com/en/latest/topics/targeting/grains.html):
 
 * *environment* contains the chef environment of the node: `salt -G "environment:production" ...`
-* *roles* contains a complete expanded list of roles assigned to the node (this includes roles within roles): `salt -G "roles:salt_minion" ...`
+* *role* contains a complete expanded list of roles assigned to the node (this includes roles within roles): `salt -G "role:salt_minion" ...`
 
 In addition, you can define your own custom grains using the `node['salt']['minion']['grains']` attribute. See above.
 
