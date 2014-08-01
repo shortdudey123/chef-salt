@@ -4,7 +4,7 @@ maintainer_email  'daryl@robbins.name'
 license           'Apache 2.0'
 description       'Installs and configures Salt'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.2.1'
+version          '0.3.0'
 
 recipe 'master', 'Installs and configures a Salt master'
 recipe 'minion', 'Installs and configures a Salt minion'

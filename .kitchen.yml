@@ -26,3 +26,9 @@ suites:
       salt:
         minion:
           master: 127.0.0.1
+          grains:
+            quinoa: delicious
+            stooges:
+              - larry
+              - curly
+              - moe

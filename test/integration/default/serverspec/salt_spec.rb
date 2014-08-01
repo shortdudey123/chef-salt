@@ -72,6 +72,11 @@ describe 'Salt Minion' do
     it { should be_file }
     it { should contain 'master: 127.0.0.1' }
     its(:content) { should match /id: default-/ }
+    it { should contain 'environment: _default' }
+    it { should contain '- salt_minion' }
+    it { should contain 'quinoa: delicious' }
+    it { should contain 'stooges:' }
+    it { should contain '- moe' }
   end
 
 end

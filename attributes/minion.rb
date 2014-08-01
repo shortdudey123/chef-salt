@@ -14,3 +14,5 @@ default['salt']['minion']['config_template'] = 'minion.erb'
 default['salt']['minion']['config_cookbook'] = 'salt'
 
 default['salt']['minion']['package'] = 'salt-minion'
+
+default['salt']['minion']['grains'] = {}

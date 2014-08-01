@@ -22,6 +22,12 @@ on the same basic messaging technology: ZeroMQ.
 And as of SaltStack 2014.7, they have significantly improved [Chef integration](http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.chef.html#module-salt.modules.chef).
 Want to do a chef client run on all your nodes: `salt "*" chef.client` Then, you
 can use the job management commands to check on the status of your run.
+
+And since you made or are hopefully about to make the wise decision to use this
+cookbook, you'll get even better Chef-Salt integration. The cookbook will
+automatically sync up the metadata (grains in Salt parlance) between Chef and
+Salt to allow you to filter on role or environment or custom markers.
+
 Requirements
 ============
 
@@ -43,7 +49,18 @@ This cooked has been confirmed to work on:
 Attributes
 ==========
 
+* `node['salt']['version']` - Package version to be installed (defaults to nil for latest). This attribute applies to both the master and minion, since you'll want to keep their versions synced up
+* `node['salt']['role']['master']` - Salt master role (defaults to salt_master)
+* `node['salt']['role']['minion']` - Salt minion role (defaults to salt_minion)
+
+### Minion
 * `node['salt']['minion']['master']` - Address or list of masters, if not using built-in search functionality.
+* `node['salt']['minion']['master_environment']` - The environment in which to search for a master; or `nil` to search all environments (defaults to the node's environment)
+* `node['salt']['minion']['grains']` - Map of custom [grains](http://docs.saltstack.com/en/latest/topics/targeting/grains.html) for tagging the minion. Each entry may contain a single string value or a list of strings.
+* `node['salt']['minion']['config_cookbook']` and `node['salt']['minion']['config_template']` allow you to override the template used to generate the minion config file `/etc/salt/minion`
+
+### Master
+* `node['salt']['master']['config_cookbook']` and `node['salt']['master']['config_template']` allow you to override the template used to generate the master config file `/etc/salt/master`
 
 See attribute files for more supported attributes.
 
@@ -69,6 +86,7 @@ Install Salt master using OS package manager.
 Resources/Providers
 ===================
 
+None at this time.
 
 Usage
 =====
@@ -83,9 +101,20 @@ If you want your Salt Masters to operate across all environments, set
 At the moment, you will need to [approve access](http://docs.saltstack.com/en/latest/ref/cli/salt-key.html) for any minions with the `salt-key -A` command. A future version of this cookbook
 will handle this automatically.
 
+Using Salt
+==========
 
-Examples
---------
+### Targetting Minions
+
+This cookbook attempts to keep metadata synchronized between Chef and Salt.
+
+Minions are automatically tagged (and updated on every chef-client run) with the
+following two standard Salt [grains](http://docs.saltstack.com/en/latest/topics/targeting/grains.html):
+
+* *environment* contains the chef environment of the node: `salt -G "environment:production" ...`
+* *roles* contains a complete expanded list of roles assigned to the node (this includes roles within roles): `salt -G "roles:salt_minion" ...`
+
+In addition, you can define your own custom grains using the `node['salt']['minion']['grains']` attribute. See above.
 
 License and Author
 ==================

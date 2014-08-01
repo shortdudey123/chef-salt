@@ -7,6 +7,9 @@
 # 
 #
 
+# TODO: call sync grains command in Salt periodically to ensure the autmatic
+# grains stay in sync.
+
 include_recipe "salt::_setup"
 
 package node['salt']['minion']['package'] do
