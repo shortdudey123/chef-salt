@@ -12,3 +12,5 @@ default['salt']['minion']['master_environment'] = node.chef_environment
 
 default['salt']['minion']['config_template'] = 'minion.erb'
 default['salt']['minion']['config_cookbook'] = 'salt'
+
+default['salt']['minion']['package'] = 'salt-minion'

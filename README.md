@@ -4,8 +4,24 @@ Description
 
 > Because every Chef needs a little Salt.
 
+*Improved Remote Execution for Open Source Chef*
+
 Install [Salt](http://www.saltstack.com) master and/or minion.
 
+### Why would anyone ever want to use both Salt and Chef?
+
+I'm glad you asked!
+
+Open Source Chef is weak in one key area that Salt just so happens to be very
+strong: remote execution. `knife ssh "name:*" "sudo chef-client"` really doesn't
+scale very well.
+
+Think of Salt as the Push Jobs plugin for Open Source Chef. They're even based
+on the same basic messaging technology: ZeroMQ.
+
+And as of SaltStack 2014.7, they have significantly improved [Chef integration](http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.chef.html#module-salt.modules.chef).
+Want to do a chef client run on all your nodes: `salt "*" chef.client` Then, you
+can use the job management commands to check on the status of your run.
 Requirements
 ============
 
@@ -15,8 +31,8 @@ This cooked has been confirmed to work on:
 
 * Ubuntu 10.04 or later
 * CentOS 5+, RedHat 5+, Scientific Linux 5+
-
-Note that Debian and Fedora are not currently suported (coming soon).
+* Fedora 19, 20
+* Debian 7 (Wheezy)
 
 ### Dependencies
 

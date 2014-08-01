@@ -1,7 +1,8 @@
 
 include_recipe "salt::_setup"
 
-package 'salt-master' do
+package node['salt']['master']['package'] do
+  version node['salt']['version'] if node['salt']['version']
   action :install
 end
 

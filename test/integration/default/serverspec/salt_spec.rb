@@ -70,7 +70,7 @@ describe 'Salt Minion' do
 
   describe file('/etc/salt/minion') do
     it { should be_file }
-    it { should contain 'master: localhost' }
+    it { should contain 'master: 127.0.0.1' }
     its(:content) { should match /id: default-/ }
   end
 

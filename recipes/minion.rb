@@ -9,7 +9,8 @@
 
 include_recipe "salt::_setup"
 
-package 'salt-minion' do
+package node['salt']['minion']['package'] do
+  version node['salt']['version'] if node['salt']['version']
   action :install
 end
 
