@@ -10,7 +10,7 @@ recipe 'master', 'Installs and configures a Salt master'
 recipe 'minion', 'Installs and configures a Salt minion'
 
 supports 'ubuntu', '>= 10.04'
-supports 'fedora', '>= 19'
+supports 'fedora', '>= 19.0'
 supports 'debian', '~> 7.0'
 
 %w(redhat centos scientific amazon oracle).each do |os|
