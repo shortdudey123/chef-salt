@@ -4,7 +4,7 @@ driver:
 
 provisioner:
   name: chef_zero
-  roles_path: test/fixtures/cookbooks
+  roles_path: test/fixtures/roles
 
 platforms:
 - name: ubuntu-10.04

@@ -22,3 +22,5 @@ end
 service 'salt-master' do 
   action :start
 end
+
+# node.set['salt']['master']['public_key'] = IO.read('/etc/salt/pki/master/master.pub')

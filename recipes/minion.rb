@@ -52,3 +52,5 @@ end
 service 'salt-minion' do 
   action :start
 end
+
+# node.set['salt']['minion']['public_key'] = IO.read('/etc/salt/pki/minion/minion.pub')
