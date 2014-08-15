@@ -6,8 +6,8 @@ description       'Installs and configures Salt'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.3.0'
 
-recipe 'master', 'Installs and configures a Salt master'
-recipe 'minion', 'Installs and configures a Salt minion'
+recipe 'salt::master', 'Installs and configures a Salt master'
+recipe 'salt::minion', 'Installs and configures a Salt minion'
 
 supports 'ubuntu', '>= 10.04'
 supports 'fedora', '>= 19.0'
