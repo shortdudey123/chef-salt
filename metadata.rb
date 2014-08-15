@@ -20,3 +20,13 @@ end
 depends 'apt',              '~> 2.3.10'
 depends 'yum',              '~> 3.0'
 depends 'yum-epel'
+
+attribute "salt/version",
+	:display_name => "Salt Version to install",
+	:description =>
+	"The version of Salt that will be installed. Leave blank (or 'nil') for latest.",
+	:required => "optional",
+	:recipes => [
+	'salt::master',
+	'salt::minion'
+	]
