@@ -22,7 +22,7 @@ depends 'yum',              '~> 3.0'
 depends 'yum-epel'
 
 attribute "salt/version",
-	:display_name => "Salt Version to install",
+	:display_name => "Salt Version",
 	:description =>
 	"The version of Salt that will be installed. Leave blank (or 'nil') for latest.",
 	:required => "optional",
@@ -30,3 +30,12 @@ attribute "salt/version",
 	'salt::master',
 	'salt::minion'
 	]
+
+attribute "salt/minion/master",
+	:display_name => "List of Masters",
+	:description =>
+	"The address or list of Masters to use. If left blank, will use built-in search functionality.",
+	:required => "optional",
+	:recipes => [
+	'salt::minion'
+	]	
