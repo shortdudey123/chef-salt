@@ -39,3 +39,12 @@ attribute "salt/minion/master",
 	:recipes => [
 	'salt::minion'
 	]	
+
+attribute "salt/minion/grains",
+	:display_name => "Salt Grains",
+	:description =>
+	"Map of custom grains for tagging the minion. Each entry may contain a single string value or a list of strings.",
+	:required => "optional",
+	:recipes => [
+	'salt::minion'
+	]		
