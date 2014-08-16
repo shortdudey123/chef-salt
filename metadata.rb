@@ -6,8 +6,8 @@ description       'Installs and configures Salt'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.3.0'
 
-recipe 'master', 'Installs and configures a Salt master'
-recipe 'minion', 'Installs and configures a Salt minion'
+recipe 'salt::master', 'Installs and configures a Salt master'
+recipe 'salt::minion', 'Installs and configures a Salt minion'
 
 supports 'ubuntu', '>= 10.04'
 supports 'fedora', '>= 19.0'
@@ -20,3 +20,31 @@ end
 depends 'apt',              '~> 2.3.10'
 depends 'yum',              '~> 3.0'
 depends 'yum-epel'
+
+attribute "salt/version",
+	:display_name => "Salt Version",
+	:description =>
+	"The version of Salt that will be installed. Leave blank (or 'nil') for latest.",
+	:required => "optional",
+	:recipes => [
+	'salt::master',
+	'salt::minion'
+	]
+
+attribute "salt/minion/master",
+	:display_name => "List of Masters",
+	:description =>
+	"The address or list of Masters to use. If left blank, will use built-in search functionality.",
+	:required => "optional",
+	:recipes => [
+	'salt::minion'
+	]	
+
+attribute "salt/minion/grains",
+	:display_name => "Salt Grains",
+	:description =>
+	"Map of custom grains for tagging the minion. Each entry may contain a single string value or a list of strings.",
+	:required => "optional",
+	:recipes => [
+	'salt::minion'
+	]		
