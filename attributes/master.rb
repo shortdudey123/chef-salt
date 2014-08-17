@@ -5,6 +5,8 @@ default['salt']['master']['interface'] = '0.0.0.0'
 default['salt']['master']['config_template'] = 'master.erb'
 default['salt']['master']['config_cookbook'] = 'salt'
 
+default['salt']['master']['environment']     = node.chef_environment
+
 case node['platform_family']
 when 'arch'
   default['salt']['master']['package'] = 'salt'

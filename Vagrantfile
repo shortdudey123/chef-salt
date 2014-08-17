@@ -1,6 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Expected plugins:
+# vagrant-berkshelf (3.0.1)
+# vagrant-chef-zero (0.7.1)
+# vagrant-hosts (2.2.0)
+# vagrant-omnibus (1.4.1)
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
@@ -25,7 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
-  config.vm.network "private_network", type: "dhcp"
+  # config.vm.network "private_network", type: "dhcp"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -61,6 +67,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # HTTP instead of HTTPS depending on your configuration. Also change the
   # validation key to validation.pem.
   #
+
+  config.omnibus.chef_version = :latest
+
   config.vm.provision "chef_client" do |chef|
     # chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
     # chef.validation_key_path = "ORGNAME-validator.pem"
@@ -78,6 +87,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "master", primary: true do |master|
     master.vm.hostname = "master"
+    master.vm.network "private_network", ip: "10.20.1.2"
+    master.vm.provision :hosts
     master.vm.provision "chef_client" do |chef|
       chef.add_role "salt_master"
     end
@@ -85,8 +96,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "minion" do |minion|
     minion.vm.hostname = "minion"
+    minion.vm.network "private_network", ip: "10.20.1.3"
+    minion.vm.provision :hosts
     minion.vm.provision "chef_client" do |chef|
       chef.add_role "salt_minion"
+      chef.json = {
+        salt: {
+          minion: {
+            master: 'master'
+          }
+        }
+      }
     end
   end
 

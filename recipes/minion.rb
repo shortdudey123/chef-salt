@@ -12,8 +12,8 @@
 
 include_recipe "salt::_setup"
 
-package node['salt']['minion']['package'] do
-  version node['salt']['version'] if node['salt']['version']
+package node.salt['minion']['package'] do
+  version node.salt['version'] if node.salt['version']
   action :install
 end
 
@@ -21,10 +21,10 @@ service 'salt-minion' do
   action :enable
 end
 
-unless node['salt']['minion']['master']
-  master_search = "role:#{node['salt']['role']['master']}"
-  if node['salt']['minion']['master_environment'] and node['salt']['minion']['master_environment'] != '_default'
-    master_search += " AND chef_environment:#{node['salt']['minion']['master_environment']}" 
+unless node.salt['minion']['master']
+  master_search = "roles:#{node.salt['role']['master']}"
+  if node.salt['minion']['master_environment'] and node.salt['minion']['master_environment'] != '_default'
+    master_search += " AND chef_environment:#{node.salt['minion']['master_environment']}" 
   end
 
   master_nodes = search(:node, master_search)
@@ -32,7 +32,7 @@ unless node['salt']['minion']['master']
   # TODO: Find best IP address
   master = master_nodes.collect { |n| n['ipaddress'] }
 else
-  master = [node['salt']['minion']['master']]
+  master = [node.salt['minion']['master']]
 end
 
 unless master and master.length >= 1
@@ -40,17 +40,21 @@ unless master and master.length >= 1
 end
 
 template "/etc/salt/minion" do
-  source node['salt']['minion']['config_template'] || 'minion.erb'
-  cookbook node['salt']['minion']['config_cookbook'] || 'salt'
+  source node.salt['minion']['config_template'] || 'minion.erb'
+  cookbook node.salt['minion']['config_cookbook'] || 'salt'
   owner "root"
   group "root"
   mode "0644"
   variables( :master => master )
-  notifies :restart, 'service[salt-minion]'
+  notifies :restart, 'service[salt-minion]', :delayed
+  notifies :run, 'execute[wait for salt-minion]', :delayed
 end
 
-service 'salt-minion' do 
-  action :start
+# We need to wait for salt-minion to generate the key, so we can capture it
+execute "wait for salt-minion" do
+  command 'sleep 5'
+  action :nothing
+  notifies :reload, 'ohai[reload_salt]', :immediate
 end
 
-# node.set['salt']['minion']['public_key'] = IO.read('/etc/salt/pki/minion/minion.pub')
+
