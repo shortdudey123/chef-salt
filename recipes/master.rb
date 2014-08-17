@@ -26,29 +26,38 @@ execute "wait for salt-master" do
   notifies :reload, 'ohai[reload_salt]', :immediate
 end
 
-minion_search = "roles:#{node.salt['role']['minion']}"
-if node.salt['master']['environment']
-  minion_search += " AND chef_environment:#{node.salt['master']['environment']}" 
-end
-
-minions = search(:node, minion_search)
-
-log "Synchronizing keys for #{minions.length} minions"
-
-# Add minion keys to master PKI
-minions.each do |minion|
-  next unless minion.salt['public_key']
-
-  file "/etc/salt/pki/master/minions/#{minion.salt['minion']['id']}" do
-    action :create
-    owner "root"
-    group "root"
-    mode "0644"
-    content minion.salt['public_key']
-  end
-  file "/etc/salt/pki/master/minions_pre/#{minion.salt['minion']['id']}" do
-    action :delete
-  end
+unless Chef::Config[:solo]
   
-  
+  minion_search = "roles:#{node.salt['role']['minion']}"
+  if node.salt['master']['environment']
+    minion_search += " AND chef_environment:#{node.salt['master']['environment']}" 
+  end
+
+  minions = search(:node, minion_search)
+
+  log "Synchronizing keys for #{minions.length} minions"
+
+  # Add minion keys to master PKI
+  minions.each do |minion|
+    next unless minion.salt['public_key']
+
+    file "/etc/salt/pki/master/minions/#{minion.salt['minion']['id']}" do
+      action :create
+      owner "root"
+      group "root"
+      mode "0644"
+      content minion.salt['public_key']
+    end
+    file "/etc/salt/pki/master/minions_pre/#{minion.salt['minion']['id']}" do
+      action :delete
+    end
+    
+    
+  end
+else
+
+  log "Salt key exchange not supported on Chef solo" do
+    level :warn
+  end
+
 end
