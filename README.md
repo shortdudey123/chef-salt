@@ -55,11 +55,12 @@ Attributes
 
 ### Minion
 * `node['salt']['minion']['master']` - Address or list of masters, if not using built-in search functionality.
-* `node['salt']['minion']['master_environment']` - The environment in which to search for a master; or `nil` to search all environments (defaults to the node's environment)
+* `node['salt']['minion']['environment']` - The environment in which to search for a master; or `nil` to search all environments (defaults to the node's environment)
 * `node['salt']['minion']['grains']` - Map of custom [grains](http://docs.saltstack.com/en/latest/topics/targeting/grains.html) for tagging the minion. Each entry may contain a single string value or a list of strings.
 * `node['salt']['minion']['config_cookbook']` and `node['salt']['minion']['config_template']` allow you to override the template used to generate the minion config file `/etc/salt/minion`
 
 ### Master
+* `node['salt']['minion']['environment']` - The environment in which to search for minions; or `nil` to search all environments (defaults to the node's environment)
 * `node['salt']['master']['config_cookbook']` and `node['salt']['master']['config_template']` allow you to override the template used to generate the master config file `/etc/salt/master`
 
 See attribute files for more supported attributes.
@@ -96,10 +97,13 @@ recipes. The nodes will automatically discover each other within the same enviro
 (when using Chef Server).
 
 If you want your Salt Masters to operate across all environments, set
-`node['salt']['minion']['master_environment']` to `nil` for all minions.
+`node['salt']['minion']['environment']` to `nil` for all minions; and set 
+`node['salt']['master']['environment']` to `nil` for all masters.
 
-At the moment, you will need to [approve access](http://docs.saltstack.com/en/latest/ref/cli/salt-key.html) for any minions with the `salt-key -A` command. A future version of this cookbook
-will handle this automatically.
+The cookbook will automatically manage the key exchange between minions and masters.
+Note that once a new minion is setup, it will still be unable to communicate with the master(s)
+until the next Chef run on the master(s). The minion recipe registers the minion's public key
+and the master recipe then accepts any new keys that are registered with Chef.
 
 Using Salt
 ==========
