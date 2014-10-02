@@ -58,10 +58,12 @@ Attributes
 * `node['salt']['minion']['environment']` - The environment in which to search for a master; or `nil` to search all environments (defaults to the node's environment)
 * `node['salt']['minion']['grains']` - Map of custom [grains](http://docs.saltstack.com/en/latest/topics/targeting/grains.html) for tagging the minion. Each entry may contain a single string value or a list of strings.
 * `node['salt']['minion']['config_cookbook']` and `node['salt']['minion']['config_template']` allow you to override the template used to generate the minion config file `/etc/salt/minion`
+* `node['salt']['minion']['install_opts']` allows you to specifiy install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)
 
 ### Master
 * `node['salt']['minion']['environment']` - The environment in which to search for minions; or `nil` to search all environments (defaults to the node's environment)
 * `node['salt']['master']['config_cookbook']` and `node['salt']['master']['config_template']` allow you to override the template used to generate the master config file `/etc/salt/master`
+* `node['salt']['master']['install_opts']` allows you to specifiy install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)
 
 See attribute files for more supported attributes.
 
