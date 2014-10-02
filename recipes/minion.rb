@@ -23,7 +23,7 @@ service 'salt-minion' do
 end
 
 unless node.salt['minion']['master']
-  master_search = "roles:#{node.salt['role']['master']}"
+  master_search = "role:#{node.salt['role']['master']}"
   if node.salt['minion']['master_environment'] and node.salt['minion']['master_environment'] != '_default'
     master_search += " AND chef_environment:#{node.salt['minion']['master_environment']}" 
   end

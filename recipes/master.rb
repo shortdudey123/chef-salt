@@ -29,7 +29,7 @@ end
 
 unless Chef::Config[:solo]
   
-  minion_search = "roles:#{node.salt['role']['minion']}"
+  minion_search = "role:#{node.salt['role']['minion']}"
   if node.salt['master']['environment']
     minion_search += " AND chef_environment:#{node.salt['master']['environment']}" 
   end
