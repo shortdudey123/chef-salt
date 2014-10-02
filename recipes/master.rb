@@ -3,6 +3,7 @@ include_recipe "salt::_setup"
 
 package node['salt']['master']['package'] do
   version node['salt']['version'] if node['salt']['version']
+  options node['salt']['master']['install_opts'] unless node['salt']['master']['install_opts'].nil?
   action :install
 end
 

@@ -14,6 +14,7 @@ include_recipe "salt::_setup"
 
 package node.salt['minion']['package'] do
   version node.salt['version'] if node.salt['version']
+  options node.salt['minion']['install_opts'] unless node.salt['minion']['install_opts'].nil?
   action :install
 end
 
