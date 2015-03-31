@@ -1,3 +1,5 @@
+**Looking for potential contributors who are interested in taking a more active role in this project. Unfortunately, I haven't been doing as much Chef or Salt lately since we switched to AWS.**
+
 
 Description
 ===========
