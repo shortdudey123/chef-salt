@@ -39,8 +39,18 @@ when 'debian'
   end
 
 when 'rhel'
-  if node['platform_version'].to_i >= 5
+  if node['platform_version'].to_i > 5
     include_recipe 'yum-epel'
+  elsif node['platform_version'].to_i == 5
+    #EPEL for CentOS/RHEL 5 removed the python26-distribute package,
+    #so salt on CentOS/RHEL 5 only requires the salt COPR repo to install
+    yum_repository 'copr' do
+      description 'COPR Salt repo'
+      baseurl 'https://copr-be.cloud.fedoraproject.org/results/saltstack/salt-el5/epel-5-x86_64/'
+      gpgkey 'https://copr-be.cloud.fedoraproject.org/results/saltstack/salt-el5/pubkey.gpg'
+      sslverify false
+      action :create
+    end
   end
-
 end
+
