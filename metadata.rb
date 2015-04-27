@@ -17,7 +17,7 @@ supports 'debian', '~> 7.0'
   supports os, '>= 5.0'
 end
 
-depends 'apt',              '~> 2.3.10'
+depends 'apt',              '~> 2.7.0'
 depends 'yum',              '~> 3.0'
 depends 'yum-epel'
 depends 'ohai'
