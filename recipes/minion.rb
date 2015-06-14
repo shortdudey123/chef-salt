@@ -2,9 +2,9 @@
 # Cookbook Name:: chef-salt
 # Recipe:: default
 #
-# Copyright (C) 2014 
+# Copyright (C) 2014
 #
-# 
+#
 #
 
 # TODO: call sync grains command in Salt periodically to ensure the autmatic
@@ -18,14 +18,14 @@ package node.salt['minion']['package'] do
   action :install
 end
 
-service 'salt-minion' do 
+service 'salt-minion' do
   action :enable
 end
 
 unless node.salt['minion']['master']
   master_search = "role:#{node.salt['role']['master']}"
   if node.salt['minion']['master_environment'] and node.salt['minion']['master_environment'] != '_default'
-    master_search += " AND chef_environment:#{node.salt['minion']['master_environment']}" 
+    master_search += " AND chef_environment:#{node.salt['minion']['master_environment']}"
   end
 
   master_nodes = search(:node, master_search)
