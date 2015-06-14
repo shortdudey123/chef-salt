@@ -37,25 +37,25 @@ else
 end
 
 unless master and master.length >= 1
-  raise "No salt-master found"
+  log "No salt-master found" do
+    level :warn
+  end
+else
+  template "/etc/salt/minion" do
+    source node.salt['minion']['config_template'] || 'minion.erb'
+    cookbook node.salt['minion']['config_cookbook'] || 'salt'
+    owner "root"
+    group "root"
+    mode "0644"
+    variables( :master => master )
+    notifies :restart, 'service[salt-minion]', :delayed
+    notifies :run, 'execute[wait for salt-minion]', :delayed
+  end
+
+  # We need to wait for salt-minion to generate the key, so we can capture it
+  execute "wait for salt-minion" do
+    command 'sleep 5'
+    action :nothing
+    notifies :reload, 'ohai[reload_salt]', :immediate
+  end
 end
-
-template "/etc/salt/minion" do
-  source node.salt['minion']['config_template'] || 'minion.erb'
-  cookbook node.salt['minion']['config_cookbook'] || 'salt'
-  owner "root"
-  group "root"
-  mode "0644"
-  variables( :master => master )
-  notifies :restart, 'service[salt-minion]', :delayed
-  notifies :run, 'execute[wait for salt-minion]', :delayed
-end
-
-# We need to wait for salt-minion to generate the key, so we can capture it
-execute "wait for salt-minion" do
-  command 'sleep 5'
-  action :nothing
-  notifies :reload, 'ohai[reload_salt]', :immediate
-end
-
-
