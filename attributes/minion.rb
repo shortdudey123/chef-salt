@@ -25,3 +25,5 @@ else
 end
 
 default['salt']['minion']['grains'] = {}
+
+default['salt']['minion']['master_attribute'] = 'ipaddress'

@@ -31,7 +31,7 @@ unless node.salt['minion']['master']
   master_nodes = search(:node, master_search)
 
   # TODO: Find best IP address
-  master = master_nodes.collect { |n| n['ipaddress'] }
+  master = master_nodes.collect { |n| n[node['salt']['minion']['master_attribute']] }
 else
   master = [node.salt['minion']['master']]
 end
