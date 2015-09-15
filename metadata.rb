@@ -4,7 +4,7 @@ maintainer_email  'daryl@robbins.name'
 license           'Apache 2.0'
 description       'Installs and configures Salt'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          	'1.1.0'
+version          	'0.2.1'
 
 recipe 'salt::master', 'Installs and configures a Salt master'
 recipe 'salt::minion', 'Installs and configures a Salt minion'
@@ -17,8 +17,8 @@ supports 'debian', '~> 7.0'
   supports os, '>= 5.0'
 end
 
-depends 'apt',              '~> 2.3.10'
-depends 'yum',              '~> 3.0'
+depends 'apt'
+depends 'yum'
 depends 'yum-epel'
 depends 'ohai'
 
