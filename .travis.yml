@@ -6,3 +6,4 @@ before_script:
   - bundle exec berks install
 script:
   - bundle exec rake
+sudo: false
