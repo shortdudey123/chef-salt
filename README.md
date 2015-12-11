@@ -1,8 +1,6 @@
-**Looking for potential contributors who are interested in taking a more active role in this project. Unfortunately, I haven't been doing as much Chef or Salt lately since we switched to AWS.**
+# Salt Cookbook
 
-
-Description
-===========
+## Description
 
 > Because every Chef needs a little Salt.
 
@@ -30,8 +28,7 @@ cookbook, you'll get even better Chef-Salt integration. The cookbook will
 automatically sync up the metadata (grains in Salt parlance) between Chef and
 Salt to allow you to filter on role or environment or custom markers.
 
-Requirements
-============
+## Requirements
 
 ### Platforms
 
@@ -48,8 +45,7 @@ This cooked has been confirmed to work on:
 * yum
 * yum-epel
 
-Attributes
-==========
+## Attributes
 
 * `node['salt']['version']` - Package version to be installed (defaults to nil for latest). This attribute applies to both the master and minion, since you'll want to keep their versions synced up
 * `node['salt']['role']['master']` - Salt master role (defaults to salt_master)
@@ -69,32 +65,26 @@ Attributes
 
 See attribute files for more supported attributes.
 
-Recipes
-=======
+## Recipes
 
-default
--------
+### default
 
 Nothing; reserved to include future LWRPs.
 
-master
-------
+### master
 
 Install Salt master using OS package manager.
 
-minion
-------
+### minion
 
 Install Salt master using OS package manager.
 
 
-Resources/Providers
-===================
+## Resources/Providers
 
 None at this time.
 
-Usage
-=====
+## Usage
 
 Define two roles named salt_master and salt_minion, which include the corresponding
 recipes. The nodes will automatically discover each other within the same environment
@@ -109,8 +99,7 @@ Note that once a new minion is setup, it will still be unable to communicate wit
 until the next Chef run on the master(s). The minion recipe registers the minion's public key
 and the master recipe then accepts any new keys that are registered with Chef.
 
-Using Salt
-==========
+## Using Salt
 
 ### Targetting Minions
 
@@ -124,8 +113,7 @@ following two standard Salt [grains](http://docs.saltstack.com/en/latest/topics/
 
 In addition, you can define your own custom grains using the `node['salt']['minion']['grains']` attribute. See above.
 
-License and Author
-==================
+## License and Author
 
 Author:: Daryl Robbins
 Author:: Grant Ridder
