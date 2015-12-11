@@ -1,5 +1,5 @@
 Ohai.plugin(:Salt) do
-  provides "salt"
+  provides 'salt'
 
   collect_data(:default) do
     salt Mash.new
@@ -10,5 +10,4 @@ Ohai.plugin(:Salt) do
       salt[:public_key] = IO.read('/etc/salt/pki/master/master.pub')
     end
   end
-
 end

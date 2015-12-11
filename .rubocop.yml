@@ -1,6 +1,7 @@
 AllCops:
-  Excludes:
+  Exclude:
     - vendor/**
+    - Vagrantfile
 
 AlignParameters:
   Enabled: false
@@ -12,3 +13,6 @@ LineLength:
   Enabled: false
 MethodLength:
   Max: 30
+Style/SingleSpaceBeforeFirstArg:
+  Exclude:
+    - 'metadata.rb'
