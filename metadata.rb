@@ -1,6 +1,6 @@
 name              'salt'
-maintainer        'Daryl Robbins'
-maintainer_email  'daryl@robbins.name'
+maintainer        'Grant Ridder'
+maintainer_email  'shortdudey123@gmail.com'
 license           'Apache 2.0'
 description       'Installs and configures Salt'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
@@ -59,7 +59,7 @@ attribute "salt/minion/master",
 	:required => "optional",
 	:recipes => [
 	'salt::minion'
-	]	
+	]
 
 attribute "salt/minion/environment",
 	:display_name => "Salt Environment",
@@ -68,7 +68,7 @@ attribute "salt/minion/environment",
 	:required => "optional",
 	:recipes => [
 	'salt::minion'
-	]	
+	]
 
 attribute "salt/minion/grains",
 	:display_name => "Salt Grains",
@@ -77,7 +77,7 @@ attribute "salt/minion/grains",
 	:required => "optional",
 	:recipes => [
 	'salt::minion'
-	]		
+	]
 
 attribute "salt/master/environment",
 	:display_name => "Salt Environment",
@@ -86,4 +86,4 @@ attribute "salt/master/environment",
 	:required => "optional",
 	:recipes => [
 	'salt::master'
-	]	
+	]

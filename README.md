@@ -101,7 +101,7 @@ recipes. The nodes will automatically discover each other within the same enviro
 (when using Chef Server).
 
 If you want your Salt Masters to operate across all environments, set
-`node['salt']['minion']['environment']` to `nil` for all minions; and set 
+`node['salt']['minion']['environment']` to `nil` for all minions; and set
 `node['salt']['master']['environment']` to `nil` for all masters.
 
 The cookbook will automatically manage the key exchange between minions and masters.
@@ -128,7 +128,9 @@ License and Author
 ==================
 
 Author:: Daryl Robbins
+Author:: Grant Ridder
 
+Copyright:: 2015, Grant Ridder
 Copyright:: 2014, Daryl Robbins
 
 Licensed under the Apache License, Version 2.0 (the "License");

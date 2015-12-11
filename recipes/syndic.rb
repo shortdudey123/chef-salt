@@ -1,3 +1,12 @@
+#
+# Cookbook Name:: chef-salt
+# Recipe:: syndic
+#
+# Copyright (C) 2015, Grant Ridder
+# Copyright (C) 2014, Daryl Robbins
+#
+#
+#
 
 include_recipe "salt::_setup"
 

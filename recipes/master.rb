@@ -1,3 +1,12 @@
+#
+# Cookbook Name:: chef-salt
+# Recipe:: master
+#
+# Copyright (C) 2015, Grant Ridder
+# Copyright (C) 2014, Daryl Robbins
+#
+#
+#
 
 include_recipe "salt::_setup"
 
@@ -7,7 +16,7 @@ package node['salt']['master']['package'] do
   action :install
 end
 
-service 'salt-master' do 
+service 'salt-master' do
   action :enable
 end
 
@@ -28,10 +37,10 @@ execute "wait for salt-master" do
 end
 
 unless Chef::Config[:solo]
-  
+
   minion_search = "role:#{node.salt['role']['minion']}"
   if node.salt['master']['environment']
-    minion_search += " AND chef_environment:#{node.salt['master']['environment']}" 
+    minion_search += " AND chef_environment:#{node.salt['master']['environment']}"
   end
 
   minions = search(:node, minion_search)
@@ -52,8 +61,8 @@ unless Chef::Config[:solo]
     file "/etc/salt/pki/master/minions_pre/#{minion.salt['minion']['id']}" do
       action :delete
     end
-    
-    
+
+
   end
 else
 
