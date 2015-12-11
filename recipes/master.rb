@@ -41,9 +41,9 @@ if Chef::Config[:solo]
     level :warn
   end
 else
-  minion_search = "role:#{node.salt['role']['minion']}"
-  if node.salt['master']['environment']
-    minion_search += " AND chef_environment:#{node.salt['master']['environment']}"
+  minion_search = "role:#{node['salt']['role']['minion']}"
+  if node['salt']['master']['environment']
+    minion_search += " AND chef_environment:#{node['salt']['master']['environment']}"
   end
 
   minions = search(:node, minion_search)

@@ -13,9 +13,9 @@
 
 include_recipe 'salt::_setup'
 
-package node.salt['minion']['package'] do
-  version node.salt['version'] if node.salt['version']
-  options node.salt['minion']['install_opts'] unless node.salt['minion']['install_opts'].nil?
+package node['salt']['minion']['package'] do
+  version node['salt']['version'] if node['salt']['version']
+  options node['salt']['minion']['install_opts'] unless node['salt']['minion']['install_opts'].nil?
   action :install
 end
 
@@ -23,25 +23,31 @@ service 'salt-minion' do
   action :enable
 end
 
-if node.salt['minion']['master']
-  master = [node.salt['minion']['master']]
+if node['salt']['minion']['master']
+  master = [node['salt']['minion']['master']]
 else
-  master_search = "role:#{node.salt['role']['master']}"
-  if node.salt['minion']['master_environment'] && node.salt['minion']['master_environment'] != '_default'
-    master_search += " AND chef_environment:#{node.salt['minion']['master_environment']}"
+  master_search = "role:#{node['salt']['role']['master']}"
+  if node['salt']['minion']['master_environment'] && node['salt']['minion']['master_environment'] != '_default'
+    master_search += " AND chef_environment:#{node['salt']['minion']['master_environment']}"
   end
 
-  master_nodes = search(:node, master_search)
+  if Chef::Config[:solo]
+    log 'Master search not supported on Chef solo' do
+      level :warn
+    end
+  else
+    master_nodes = search(:node, master_search)
 
-  # TODO: Find best IP address
-  master = master_nodes.collect { |n| n['ipaddress'] }
+    # TODO: Find best IP address
+    master = master_nodes.collect { |n| n['ipaddress'] }
+  end
 end
 
 fail 'No salt-master found' unless master && master.length >= 1
 
 template '/etc/salt/minion' do
-  source node.salt['minion']['config_template'] || 'minion.erb'
-  cookbook node.salt['minion']['config_cookbook'] || 'salt'
+  source node['salt']['minion']['config_template'] || 'minion.erb'
+  cookbook node['salt']['minion']['config_cookbook'] || 'salt'
   owner 'root'
   group 'root'
   mode '0644'
