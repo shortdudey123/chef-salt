@@ -115,10 +115,11 @@ In addition, you can define your own custom grains using the `node['salt']['mini
 
 ## License and Author
 
-Author:: Daryl Robbins
-Author:: Grant Ridder
+* Author:: Daryl Robbins
+* Author:: Grant Ridder
 
 Copyright:: 2015, Grant Ridder
+
 Copyright:: 2014, Daryl Robbins
 
 Licensed under the Apache License, Version 2.0 (the "License");
