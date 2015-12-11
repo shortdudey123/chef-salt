@@ -1,6 +1,6 @@
 # Salt Cookbook
 
-## Description
+[![Build Status](https://travis-ci.org/shortdudey123/chef-salt.svg)](https://travis-ci.org/shortdudey123/chef-salt)
 
 > Because every Chef needs a little Salt.
 
@@ -8,7 +8,7 @@
 
 Install [Salt](http://www.saltstack.com) master and/or minion.
 
-### Why would anyone ever want to use both Salt and Chef?
+## Why would anyone ever want to use both Salt and Chef?
 
 I'm glad you asked!
 
