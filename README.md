@@ -34,10 +34,10 @@ Salt to allow you to filter on role or environment or custom markers.
 
 This cooked has been confirmed to work on:
 
-* Ubuntu 10.04 or later
+* Ubuntu 12.04 or later
 * CentOS 5+, RedHat 5+, Scientific Linux 5+
-* Fedora 19, 20
-* Debian 7 (Wheezy)
+* Fedora 19 (minion only), 20, 21
+* Debian 7+ (Wheezy)
 
 ### Dependencies
 
