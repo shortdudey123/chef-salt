@@ -1,7 +1,6 @@
 AllCops:
   Exclude:
     - vendor/**
-    - Vagrantfile
 
 AlignParameters:
   Enabled: false
