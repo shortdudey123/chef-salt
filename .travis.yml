@@ -7,3 +7,6 @@ before_script:
 script:
   - bundle exec rake
 sudo: false
+branches:
+  only:
+    - master
