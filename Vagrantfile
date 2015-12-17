@@ -8,7 +8,7 @@
 # vagrant-omnibus (1.4.1)
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = 'ubuntu/trusty64'
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -70,7 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.omnibus.chef_version = :latest
 
-  config.vm.provision "chef_client" do |chef|
+  config.vm.provision 'chef_client' do |chef|
     # chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
     # chef.validation_key_path = "ORGNAME-validator.pem"
   end
@@ -82,24 +82,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
-  
-  config.chef_zero.roles = "test/fixtures/roles"
 
-  config.vm.define "master", primary: true do |master|
-    master.vm.hostname = "master"
-    master.vm.network "private_network", ip: "10.20.1.2"
+  config.chef_zero.roles = 'test/fixtures/roles'
+
+  config.vm.define 'master', primary: true do |master|
+    master.vm.hostname = 'master'
+    master.vm.network 'private_network', ip: '10.20.1.2'
     master.vm.provision :hosts
-    master.vm.provision "chef_client" do |chef|
-      chef.add_role "salt_master"
+    master.vm.provision 'chef_client' do |chef|
+      chef.add_role 'salt_master'
     end
   end
 
-  config.vm.define "minion" do |minion|
-    minion.vm.hostname = "minion"
-    minion.vm.network "private_network", ip: "10.20.1.3"
+  config.vm.define 'minion' do |minion|
+    minion.vm.hostname = 'minion'
+    master.vm.network 'private_network', ip: '10.20.1.3'
     minion.vm.provision :hosts
-    minion.vm.provision "chef_client" do |chef|
-      chef.add_role "salt_minion"
+    master.vm.provision 'chef_client' do |chef|
+      chef.add_role 'salt_minion'
       chef.json = {
         salt: {
           minion: {
@@ -109,5 +109,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       }
     end
   end
-
 end
