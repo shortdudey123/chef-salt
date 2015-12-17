@@ -43,6 +43,7 @@ master:
 
 # Set whether the minion should connect to the master via IPv6:
 #ipv6: False
+ipv6: <%= @config['ipv6'] %>
 
 # Set the number of seconds to wait before attempting to resolve
 # the master hostname if name resolution fails. Defaults to 30 seconds.
@@ -51,9 +52,11 @@ master:
 
 # Set the port used by the master reply and authentication server.
 #master_port: 4506
+master_port: <%= @config['master_port'] %>
 
 # The user to run salt.
 #user: root
+user: <%= @config['user'] %>
 
 # Setting sudo_user will cause salt to run all execution modules under an sudo
 # to the user given in sudo_user.  The user under which the salt minion process
@@ -63,20 +66,23 @@ master:
 
 # Specify the location of the daemon process ID file.
 #pidfile: /var/run/salt-minion.pid
+pidfile: <%= @config['pidfile'] %>
 
 # The root directory prepended to these options: pki_dir, cachedir, log_file,
 # sock_dir, pidfile.
 #root_dir: /
+root_dir: <%= @config['root_dir'] %>
 
 # The directory to store the pki information in
 #pki_dir: /etc/salt/pki/minion
+pki_dir: <%= @config['pki_dir'] %>
 
 # Explicitly declare the id for this minion to use, if left commented the id
 # will be the hostname as returned by the python call: socket.getfqdn()
 # Since salt uses detached ids it is possible to run multiple minions on the
 # same machine but with different ids, this can be useful for salt compute
 # clusters.
-id: <%= node['salt']['minion']['id'] %>
+id: <%= @config['id'] %>
 
 # Append a domain to a hostname in the event that it does not exist.  This is
 # useful for systems where socket.getfqdn() does not actually result in a
@@ -95,12 +101,12 @@ id: <%= node['salt']['minion']['id'] %>
 #  cab_u: 14-15
 
 grains:
-  environment: <%= node.chef_environment %>
+  environment: <%= @chef_environment %>
   role:
-  <%- node['roles'].each do |role| %>
+  <%- @roles.each do |role| %>
     - <%= role %>
   <%- end %>
-<%- node['salt']['minion']['grains'].each_pair do |grain, value| %>
+<%- @config['grains'].each_pair do |grain, value| %>
   <%- if value.kind_of?(Array) %>
   <%= grain %>:
   <%- value.each do |item| %>
@@ -114,9 +120,11 @@ grains:
 #
 # Where cache data goes.
 #cachedir: /var/cache/salt/minion
+cachedir: <%= @config['cachedir'] %>
 
 # Verify and set permissions on configuration directories at startup.
 #verify_env: True
+verify_env: <%= @config['verify_env'] %>
 
 # The minion can locally cache the return data from jobs sent to it, this
 # can be a good way to keep track of jobs the minion has executed
@@ -126,6 +134,7 @@ grains:
 
 # Set the directory used to hold unix sockets.
 #sock_dir: /var/run/salt/minion
+sock_dir: <%= @config['sock_dir'] %>
 
 # Set the default outputter used by the salt-call command. The default is
 # "nested".
@@ -134,10 +143,12 @@ grains:
 # By default output is colored. To disable colored output, set the color value
 # to False.
 #color: True
+color: <%= @config['color'] %>
 
 # Do not strip off the colored output from nested results and state outputs
 # (true by default).
 # strip_colors: False
+strip_colors: <%= @config['strip_colors'] %>
 
 # Backup files that are replaced by file.managed and file.recurse under
 # 'cachedir'/file_backups relative to their original location and appended
@@ -178,6 +189,7 @@ grains:
 # will wait for acceptance_wait_time seconds before trying again. Unless your master
 # is under unusually heavy load, this should be left at the default.
 #auth_timeout: 60
+auth_timeout: <%= @config['auth_timeout'] %>
 
 # Number of consecutive SaltReqTimeoutError that are acceptable when trying to
 # authenticate.
@@ -265,6 +277,7 @@ grains:
 # sane 60 seconds, but if the minion scheduler needs to be evaluated more
 # often lower this value
 #loop_interval: 60
+loop_interval: <%= @config['loop_interval'] %>
 
 # The grains_refresh_every setting allows for a minion to periodically check
 # its grains to see if they have changed and, if so, to inform the master
@@ -465,6 +478,7 @@ grains:
 # Warning: Prior to changing this value, the minion should be stopped and all
 # Salt caches should be cleared.
 #hash_type: md5
+hash_type: <%= @config['hash_type'] %>
 
 # The Salt pillar is searched for locally if file_client is set to local. If
 # this is the case, and pillar data is defined, then the pillar_roots need to
@@ -481,23 +495,27 @@ grains:
 # the situation where your keys end up in a bad state. If you run in open mode
 # you do so at your own risk!
 #open_mode: False
+open_mode: <%= @config['open_mode'] %>
 
 # Enable permissive access to the salt keys.  This allows you to run the
 # master or minion as root, but have a non-root group be given access to
 # your pki_dir.  To make the access explicit, root must belong to the group
 # you've given access to. This is potentially quite insecure.
 #permissive_pki_access: False
+permissive_pki_access: <%= @config['permissive_pki_access'] %>
 
 # The state_verbose and state_output settings can be used to change the way
 # state system data is printed to the display. By default all data is printed.
 # The state_verbose setting can be set to True or False, when set to False
 # all data that has a result of True and no changes will be suppressed.
 #state_verbose: True
+state_verbose: <%= @config['state_verbose'] %>
 
 # The state_output setting changes if the output is the full multi line
 # output for each changed state if set to 'full', but if set to 'terse'
 # the output will be shortened to a single line.
 #state_output: full
+state_output: <%= @config['state_output'] %>
 
 # The state_output_diff setting changes whether or not the output from
 # successful states is returned. Useful when even the terse output of these
@@ -534,27 +552,35 @@ grains:
 #
 #log_file: /var/log/salt/minion
 #key_logfile: /var/log/salt/key
+log_file: <%= @config['log_file'] %>
+key_logfile: <%= @config['key_logfile'] %>
 
 # The level of messages to send to the console.
 # One of 'garbage', 'trace', 'debug', info', 'warning', 'error', 'critical'.
 # Default: 'warning'
 #log_level: warning
+log_level: <%= @config['log_level'] %>
 
 # The level of messages to send to the log file.
 # One of 'garbage', 'trace', 'debug', info', 'warning', 'error', 'critical'.
 # If using 'log_granular_levels' this must be set to the highest desired level.
 # Default: 'warning'
 #log_level_logfile:
+log_level_logfile: <%= @config['log_level_logfile'] %>
 
 # The date and time format used in log messages. Allowed date/time formating
 # can be seen here: http://docs.python.org/library/time.html#time.strftime
 #log_datefmt: '%H:%M:%S'
 #log_datefmt_logfile: '%Y-%m-%d %H:%M:%S'
+log_datefmt: <%= @config['log_datefmt'] %>
+log_datefmt_logfile: <%= @config['log_datefmt_logfile'] %>
 
 # The format of the console logging messages. Allowed formatting options can
 # be seen here: http://docs.python.org/library/logging.html#logrecord-attributes
 #log_fmt_console: '[%(levelname)-8s] %(message)s'
 #log_fmt_logfile: '%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'
+log_fmt_console: <%= @config['log_fmt_console'] %>
+log_fmt_logfile: <%= @config['log_fmt_logfile'] %>
 
 # This can be used to control logging levels more specificically.  This
 # example sets the main salt library at the 'warning' level, but sets
@@ -656,3 +682,4 @@ grains:
 ############################################
 # Which returner(s) will be used for minion's result:
 #return: mysql
+return: <%= @config['return'] %>

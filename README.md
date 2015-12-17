@@ -47,6 +47,12 @@ This cooked has been confirmed to work on:
 
 ## Attributes
 
+## Deprecated
+* `node['salt']['minion']['grains']` - **DEPRECATED** replaced by `node['salt']['minion']['config']['grains']`
+* `node['salt']['minion']['id']` - **DEPRECATED** replaced by `node['salt']['minion']['config']['id']`
+* `node['salt']['master']['interface']` - **DEPRECATED** replaced by `node['salt']['master']['config']['interface']`
+
+### General
 * `node['salt']['version']` - Package version to be installed (defaults to nil for latest). This attribute applies to both the master and minion, since you'll want to keep their versions synced up
 * `node['salt']['role']['master']` - Salt master role (defaults to salt_master)
 * `node['salt']['role']['minion']` - Salt minion role (defaults to salt_minion)
@@ -54,14 +60,106 @@ This cooked has been confirmed to work on:
 ### Minion
 * `node['salt']['minion']['master']` - Address or list of masters, if not using built-in search functionality.
 * `node['salt']['minion']['environment']` - The environment in which to search for a master; or `nil` to search all environments (defaults to the node's environment)
-* `node['salt']['minion']['grains']` - Map of custom [grains](http://docs.saltstack.com/en/latest/topics/targeting/grains.html) for tagging the minion. Each entry may contain a single string value or a list of strings.
+* `node['salt']['minion']['grains']` - **DEPRECATED** replaced by `node['salt']['minion']['config']['grains']`
 * `node['salt']['minion']['config_cookbook']` and `node['salt']['minion']['config_template']` allow you to override the template used to generate the minion config file `/etc/salt/minion`
 * `node['salt']['minion']['install_opts']` allows you to specify install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)
+* `node['salt']['minion']['id']` - **DEPRECATED** replaced by `node['salt']['minion']['config']['id']`
+* `node['salt']['minion']['config']['id']` - (defaults to node.name)
+* `node['salt']['minion']['config']['grains']` - Map of custom [grains](http://docs.saltstack.com/en/latest/topics/targeting/grains.html) for tagging the minion. Each entry may contain a single string value or a list of strings. (defaults to {})
+* `node['salt']['minion']['config']['ipv6']` - (defaults to `false`)
+* `node['salt']['minion']['config']['user']` - (defaults to `root`)
+* `node['salt']['minion']['config']['master_port']` - (defaults to `4506`)
+* `node['salt']['minion']['config']['pidfile']` - (defaults to `/var/run/salt-minion.pid`)
+* `node['salt']['minion']['config']['root_dir']` - (defaults to `/`)
+* `node['salt']['minion']['config']['pki_dir']` - (defaults to `/etc/salt/pki/minion`)
+* `node['salt']['minion']['config']['cachedir']` - (defaults to `/var/cache/salt/minion`)
+* `node['salt']['minion']['config']['verify_env']` - (defaults to `true`)
+* `node['salt']['minion']['config']['auth_timeout']` - (defaults to `60`)
+* `node['salt']['minion']['config']['loop_interval']` - (defaults to `60`)
+* `node['salt']['minion']['config']['color']` - (defaults to `true`)
+* `node['salt']['minion']['config']['strip_colors']` - (defaults to `false`)
+* `node['salt']['minion']['config']['sock_dir']` - (defaults to `/var/run/salt/minion`)
+* `node['salt']['minion']['config']['open_mode']` - (defaults to `false`)
+* `node['salt']['minion']['config']['permissive_pki_access']` - (defaults to `false`)
+* `node['salt']['minion']['config']['state_verbose']` - (defaults to `true`)
+* `node['salt']['minion']['config']['state_output']` - (defaults to `full`)
+* `node['salt']['minion']['config']['hash_type']` - (defaults to `md5`)
+* `node['salt']['minion']['config']['log_file']` - (defaults to `/var/log/salt/master`)
+* `node['salt']['minion']['config']['key_logfile']` - (defaults to `/var/log/salt/key`)
+* `node['salt']['minion']['config']['log_level']` - (defaults to `warning`)
+* `node['salt']['minion']['config']['log_level_logfile']` - (defaults to `warning`)
+* `node['salt']['minion']['config']['log_datefmt']` - (defaults to `'%H:%M:%S'`)
+* `node['salt']['minion']['config']['log_datefmt_logfile']` - (defaults to `'%Y-%m-%d %H:%M:%S'`)
+* `node['salt']['minion']['config']['log_fmt_console']` - (defaults to `'[%(levelname)-8s] %(message)s'`)
+* `node['salt']['minion']['config']['log_fmt_logfile']` - (defaults to `'%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'`)
+* `node['salt']['minion']['config']['return']` - (defaults to `mysql`)
 
 ### Master
 * `node['salt']['minion']['environment']` - The environment in which to search for minions; or `nil` to search all environments (defaults to the node's environment)
 * `node['salt']['master']['config_cookbook']` and `node['salt']['master']['config_template']` allow you to override the template used to generate the master config file `/etc/salt/master`
 * `node['salt']['master']['install_opts']` allows you to specify install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)
+* `node['salt']['master']['interface']` - **DEPRECATED** replaced by `node['salt']['master']['config']['interface']`
+* `node['salt']['master']['config']['interface']` - (defaults to `0.0.0.0`)
+* `node['salt']['master']['config']['ipv6']` - (defaults to `false`)
+* `node['salt']['master']['config']['publish_port']` - (defaults to `4505`)
+* `node['salt']['master']['config']['user']` - (defaults to `root`)
+* `node['salt']['master']['config']['max_open_files']` - (defaults to `100000`)
+* `node['salt']['master']['config']['worker_threads']` - (defaults to `5`)
+* `node['salt']['master']['config']['ret_port']` - (defaults to `4506`)
+* `node['salt']['master']['config']['pidfile']` - (defaults to `/var/run/salt-master.pid`)
+* `node['salt']['master']['config']['root_dir']` - (defaults to `/`)
+* `node['salt']['master']['config']['pki_dir']` - (defaults to `/etc/salt/pki/master`)
+* `node['salt']['master']['config']['cachedir']` - (defaults to `/var/cache/salt/master`)
+* `node['salt']['master']['config']['verify_env']` - (defaults to `true`)
+* `node['salt']['master']['config']['keep_jobs']` - (defaults to `24`)
+* `node['salt']['master']['config']['timeout']` - (defaults to `5`)
+* `node['salt']['master']['config']['loop_interval']` - (defaults to `60`)
+* `node['salt']['master']['config']['output']` - (defaults to `nested`)
+* `node['salt']['master']['config']['show_timeout']` - (defaults to `true`)
+* `node['salt']['master']['config']['color']` - (defaults to `true`)
+* `node['salt']['master']['config']['strip_colors']` - (defaults to `false`)
+* `node['salt']['master']['config']['sock_dir']` - (defaults to `/var/run/salt/master`)
+* `node['salt']['master']['config']['enable_gpu_grains']` - (defaults to `false`)
+* `node['salt']['master']['config']['job_cache']` - (defaults to `true`)
+* `node['salt']['master']['config']['minion_data_cache']` - (defaults to `true`)
+* `node['salt']['master']['config']['event_return']` - (defaults to `mysql`)
+* `node['salt']['master']['config']['event_return_queue']` - (defaults to `0`)
+* `node['salt']['master']['config']['max_event_size']` - (defaults to `1048576`)
+* `node['salt']['master']['config']['ping_on_rotate']` - (defaults to `false`)
+* `node['salt']['master']['config']['preserve_minion_cache']` - (defaults to `false`)
+* `node['salt']['master']['config']['con_cache']` - (defaults to `false`)
+* `node['salt']['master']['config']['open_mode']` - (defaults to `false`)
+* `node['salt']['master']['config']['auto_accept']` - (defaults to `false`)
+* `node['salt']['master']['config']['autosign_timeout']` - (defaults to `120`)
+* `node['salt']['master']['config']['autosign_file']` - (defaults to `/etc/salt/autosign.conf`)
+* `node['salt']['master']['config']['autoreject_file']` - (defaults to `/etc/salt/autoreject.conf`)
+* `node['salt']['master']['config']['permissive_pki_access']` - (defaults to `false`)
+* `node['salt']['master']['config']['sudo_acl']` - (defaults to `false`)
+* `node['salt']['master']['config']['token_expire']` - (defaults to `43200`)
+* `node['salt']['master']['config']['file_recv']` - (defaults to `false`)
+* `node['salt']['master']['config']['file_recv_max_size']` - (defaults to `100`)
+* `node['salt']['master']['config']['sign_pub_messages']` - (defaults to `false`)
+* `node['salt']['master']['config']['cython_enable']` - (defaults to `false`)
+* `node['salt']['master']['config']['state_top']` - (defaults to `top.sls`)
+* `node['salt']['master']['config']['renderer']` - (defaults to `yaml_jinja`)
+* `node['salt']['master']['config']['jinja_lstrip_blocks']` - (defaults to `false`)
+* `node['salt']['master']['config']['failhard']` - (defaults to `false`)
+* `node['salt']['master']['config']['state_verbose']` - (defaults to `true`)
+* `node['salt']['master']['config']['state_output']` - (defaults to `full`)
+* `node['salt']['master']['config']['state_aggregate']` - (defaults to `false`)
+* `node['salt']['master']['config']['state_events']` - (defaults to `false`)
+* `node['salt']['master']['config']['hash_type']` - (defaults to `md5`)
+* `node['salt']['master']['config']['file_buffer_size']` - (defaults to `1048576`)
+* `node['salt']['master']['config']['fileserver_events']` - (defaults to `false`)
+* `node['salt']['master']['config']['log_file']` - (defaults to `/var/log/salt/master`)
+* `node['salt']['master']['config']['key_logfile']` - (defaults to `/var/log/salt/key`)
+* `node['salt']['master']['config']['log_level']` - (defaults to `warning`)
+* `node['salt']['master']['config']['log_level_logfile']` - (defaults to `warning`)
+* `node['salt']['master']['config']['log_datefmt']` - (defaults to `'%H:%M:%S'`)
+* `node['salt']['master']['config']['log_datefmt_logfile']` - (defaults to `'%Y-%m-%d %H:%M:%S'`)
+* `node['salt']['master']['config']['log_fmt_console']` - (defaults to `'[%(levelname)-8s] %(message)s'`)
+* `node['salt']['master']['config']['log_fmt_logfile']` - (defaults to `'%(asctime)s\`)%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'`)
+* `node['salt']['master']['config']['return']` - (defaults to `mysql`)
 
 See attribute files for more supported attributes.
 

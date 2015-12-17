@@ -26,6 +26,9 @@ template '/etc/salt/master' do
   owner 'root'
   group 'root'
   mode '0644'
+  variables(
+    config: node['salt']['master']['config']
+  )
   notifies :restart, 'service[salt-master]', :delayed
   notifies :run, 'execute[wait for salt-master]', :delayed
 end
@@ -52,16 +55,16 @@ else
 
   # Add minion keys to master PKI
   minions.each do |minion|
-    next unless minion.salt['public_key']
+    next unless minion['salt']['public_key']
 
-    file "/etc/salt/pki/master/minions/#{minion.salt['minion']['id']}" do
+    file "/etc/salt/pki/master/minions/#{minion['salt']['minion']['config']['id']}" do
       action :create
       owner 'root'
       group 'root'
       mode '0644'
-      content minion.salt['public_key']
+      content minion['salt']['public_key']
     end
-    file "/etc/salt/pki/master/minions_pre/#{minion.salt['minion']['id']}" do
+    file "/etc/salt/pki/master/minions_pre/#{minion['salt']['minion']['config']['id']}" do
       action :delete
     end
   end
