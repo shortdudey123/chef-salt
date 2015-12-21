@@ -12,6 +12,12 @@ LineLength:
   Enabled: false
 MethodLength:
   Max: 30
+Style/NumericLiterals:
+  Description: >-
+                 Add underscores to large numeric literals to improve their
+                 readability.
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#underscores-in-numerics'
+  MinDigits: 10
 Style/SingleSpaceBeforeFirstArg:
   Exclude:
     - 'metadata.rb'

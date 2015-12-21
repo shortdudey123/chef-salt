@@ -51,7 +51,12 @@ template '/etc/salt/minion' do
   owner 'root'
   group 'root'
   mode '0644'
-  variables(:master => master)
+  variables(
+    chef_environment: node.chef_environment,
+    config: node['salt']['minion']['config'],
+    master: master,
+    roles: node['roles']
+  )
   notifies :restart, 'service[salt-minion]', :delayed
   notifies :run, 'execute[wait for salt-minion]', :delayed
 end

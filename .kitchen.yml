@@ -27,12 +27,13 @@ suites:
       salt:
         minion:
           master: 127.0.0.1
-          grains:
-            quinoa: delicious
-            stooges:
-              - larry
-              - curly
-              - moe
+          config:
+            grains:
+              quinoa: delicious
+              stooges:
+                - larry
+                - curly
+                - moe
     excludes:
       - fedora-19
   - name: minion
@@ -42,11 +43,12 @@ suites:
       salt:
         minion:
           master: 127.0.0.1
-          grains:
-            quinoa: delicious
-            stooges:
-              - larry
-              - curly
-              - moe
+          config:
+            grains:
+              quinoa: delicious
+              stooges:
+                - larry
+                - curly
+                - moe
     includes:
       - fedora-19
