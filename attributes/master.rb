@@ -80,3 +80,23 @@ default['salt']['master']['config'] = {
   'log_fmt_logfile' => "'%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'",
   'return' => 'mysql'
 }
+
+default['salt']['master']['api']['enable'] = false
+default['salt']['master']['api']['install_opts'] = nil
+default['salt']['master']['api']['package'] = 'salt-api'
+
+default['salt']['master']['api']['config'] = {
+  'collect_stats' => false,
+  'debug' => false,
+  'disable_ssl' => true,
+  'expire_responses' => true,
+  'host' => '0.0.0.0',
+  'max_request_body_size' => 1048576,
+  'port' => 8000,
+  'socket_queue_size' => 30,
+  'ssl_crt' => nil,
+  'ssl_key' => nil,
+  'thread_pool' => 100,
+  'webhook_disable_auth' => false,
+  'webhook_url' => '/hook'
+}
