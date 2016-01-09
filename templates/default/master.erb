@@ -792,3 +792,10 @@ log_fmt_logfile: <%= @config['log_fmt_logfile'] %>
 # Which returner(s) will be used for minion's result:
 #return: mysql
 return: <%= @config['return'] %>
+<% if @api[:enable] -%>
+
+rest_cherrypy:
+  <% @api[:config].sort.each do |key, value| -%>
+  <%= key %>: <%= value %>
+  <% end %>
+<% end %>

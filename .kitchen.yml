@@ -36,6 +36,26 @@ suites:
                 - moe
     excludes:
       - fedora-19
+  - name: salt-api
+    run_list:
+      - role[salt_master]
+      - role[salt_minion]
+    attributes:
+      salt:
+        master:
+          api:
+            enable: true
+        minion:
+          master: 127.0.0.1
+          config:
+            grains:
+              quinoa: delicious
+              stooges:
+                - larry
+                - curly
+                - moe
+    excludes:
+      - fedora-19
   - name: minion
     run_list:
       - role[salt_minion]

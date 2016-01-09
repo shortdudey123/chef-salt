@@ -27,9 +27,11 @@ template '/etc/salt/master' do
   group 'root'
   mode '0644'
   variables(
+    api: node['salt']['master']['api'],
     config: node['salt']['master']['config']
   )
   notifies :restart, 'service[salt-master]', :delayed
+  notifies :restart, 'service[salt-api]', :delayed if node['salt']['master']['api']['enable']
   notifies :run, 'execute[wait for salt-master]', :delayed
 end
 
@@ -67,5 +69,17 @@ else
     file "/etc/salt/pki/master/minions_pre/#{minion['salt']['minion']['config']['id']}" do
       action :delete
     end
+  end
+end
+
+if node['salt']['master']['api']['enable']
+  package node['salt']['master']['api']['package'] do
+    version node['salt']['version'] if node['salt']['version']
+    options node['salt']['master']['api']['install_opts'] unless node['salt']['master']['api']['install_opts'].nil?
+    action :install
+  end
+
+  service 'salt-api' do
+    action :enable
   end
 end

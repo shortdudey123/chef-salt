@@ -95,6 +95,22 @@ This cooked has been confirmed to work on:
 * `node['salt']['minion']['config']['return']` - (defaults to `mysql`)
 
 ### Master
+* `node['salt']['master']['api']['enable']` - install salt-api package (defaults to `false`)
+* `node['salt']['master']['api']['install_opts']` - (defaults to `nil`)
+* `node['salt']['master']['api']['package']` - (defaults to `salt-api`)
+* `node['salt']['master']['api']['config']['collect_stats']` - (defaults to `false`)
+* `node['salt']['master']['api']['config']['debug']` - (defaults to `false`)
+* `node['salt']['master']['api']['config']['disable_ssl']` - (defaults to `true`)
+* `node['salt']['master']['api']['config']['expire_responses']` - (defaults to `true`)
+* `node['salt']['master']['api']['config']['host']` - (defaults to `0.0.0.0`)
+* `node['salt']['master']['api']['config']['max_request_body_size']` - (defaults to `1048576`)
+* `node['salt']['master']['api']['config']['port']` - (defaults to `8000`)
+* `node['salt']['master']['api']['config']['socket_queue_size']` - (defaults to `30`)
+* `node['salt']['master']['api']['config']['ssl_crt']` - (defaults to `nil`)
+* `node['salt']['master']['api']['config']['ssl_key']` - (defaults to `nil`)
+* `node['salt']['master']['api']['config']['thread_pool']` - (defaults to `100`)
+* `node['salt']['master']['api']['config']['webhook_disable_auth']` - (defaults to `false`)
+* `node['salt']['master']['api']['config']['webhook_url']` - (defaults to `/hook`)
 * `node['salt']['minion']['environment']` - The environment in which to search for minions; or `nil` to search all environments (defaults to the node's environment)
 * `node['salt']['master']['config_cookbook']` and `node['salt']['master']['config_template']` allow you to override the template used to generate the master config file `/etc/salt/master`
 * `node['salt']['master']['install_opts']` allows you to specify install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)
