@@ -57,7 +57,7 @@ else
 
   # Add minion keys to master PKI
   minions.each do |minion|
-    next unless minion['salt']['public_key']
+    next unless minion['salt'] && minion['salt']['public_key']
 
     file "/etc/salt/pki/master/minions/#{minion['salt']['minion']['config']['id']}" do
       action :create
