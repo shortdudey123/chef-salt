@@ -156,7 +156,8 @@ minion_data_cache: <%= @config['minion_data_cache'] %>
 # configuration values. (See also, event_return_queue below.)
 #
 #event_return: mysql
-event_return: <%= @config['event_return'] %>
+<% if @config['event_return'] -%>event_return: <%= @config['event_return'] %>
+<% end -%>
 
 # On busy systems, enabling event_returns can cause a considerable load on
 # the storage system for returners. Events can be queued on the master and

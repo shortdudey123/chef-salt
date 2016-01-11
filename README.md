@@ -138,7 +138,7 @@ This cooked has been confirmed to work on:
 * `node['salt']['master']['config']['enable_gpu_grains']` - (defaults to `false`)
 * `node['salt']['master']['config']['job_cache']` - (defaults to `true`)
 * `node['salt']['master']['config']['minion_data_cache']` - (defaults to `true`)
-* `node['salt']['master']['config']['event_return']` - (defaults to `mysql`)
+* `node['salt']['master']['config']['event_return']` - (defaults to `nil`)
 * `node['salt']['master']['config']['event_return_queue']` - (defaults to `0`)
 * `node['salt']['master']['config']['max_event_size']` - (defaults to `1048576`)
 * `node['salt']['master']['config']['ping_on_rotate']` - (defaults to `false`)
