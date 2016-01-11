@@ -3,8 +3,6 @@ rvm:
   - 2.0.0
   - 2.2.4
 cache: bundler
-before_script:
-  - bundle exec berks install
 script:
   - bundle exec rake
 sudo: false
