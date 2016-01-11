@@ -63,7 +63,6 @@ describe 'Salt Master' do
     its(:content) { should match(/^enable_gpu_grains: false/) }
     its(:content) { should match(/^job_cache: true/) }
     its(:content) { should match(/^minion_data_cache: true/) }
-    its(:content) { should match(/^event_return: mysql/) }
     its(:content) { should match(/^event_return_queue: 0/) }
     its(:content) { should match(/^max_event_size: 1048576/) }
     its(:content) { should match(/^ping_on_rotate: false/) }
