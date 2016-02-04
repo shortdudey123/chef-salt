@@ -18,6 +18,3 @@ Style/NumericLiterals:
                  readability.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#underscores-in-numerics'
   MinDigits: 10
-Style/SingleSpaceBeforeFirstArg:
-  Exclude:
-    - 'metadata.rb'
