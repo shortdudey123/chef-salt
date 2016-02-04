@@ -6,16 +6,16 @@ default['salt']['master']['config_cookbook'] = 'salt'
 
 default['salt']['master']['environment']     = node.chef_environment
 
-case node['platform_family']
-when 'arch'
-  default['salt']['master']['package'] = 'salt'
-when 'freebsd'
-  default['salt']['master']['package'] = 'py27-salt'
-when 'gentoo'
-  default['salt']['master']['package'] = 'app-admin/salt'
-else
-  default['salt']['master']['package'] = 'salt-master'
-end
+default['salt']['master']['package'] = case node['platform_family']
+                                       when 'arch'
+                                         'salt'
+                                       when 'freebsd'
+                                         'py27-salt'
+                                       when 'gentoo'
+                                         'app-admin/salt'
+                                       else
+                                         'salt-master'
+                                       end
 
 default['salt']['master']['config'] = {
   'interface' => '0.0.0.0',

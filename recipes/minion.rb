@@ -43,7 +43,7 @@ else
   end
 end
 
-fail 'No salt-master found' unless master && master.length >= 1
+raise 'No salt-master found' unless master && master.length >= 1
 
 template '/etc/salt/minion' do
   source node['salt']['minion']['config_template'] || 'minion.erb'
