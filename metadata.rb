@@ -87,3 +87,6 @@ attribute 'salt/master/environment',
   :recipes => [
     'salt::master'
   ]
+
+source_url 'https://github.com/shortdudey123/chef-salt' if respond_to?(:source_url)
+issues_url 'https://github.com/shortdudey123/chef-salt/issues' if respond_to?(:issues_url)
