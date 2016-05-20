@@ -12,17 +12,12 @@ include_recipe 'salt::default'
 
 include_recipe 'ohai'
 
-ohai 'reload_salt' do
-  plugin 'salt'
-  action :nothing
+ohai_plugin 'salt' do
+  source_file 'salt_plugin.rb'
 end
 
-cookbook_file "#{node['ohai']['plugin_path']}/salt.rb" do
-  source 'salt_plugin.rb'
-  owner  'root'
-  group  node['root_group'] || 'root'
-  mode   '0755'
-  notifies :reload, 'ohai[reload_salt]', :immediately
+ohai 'salt' do
+  action :nothing
 end
 
 case node['platform_family']
