@@ -70,11 +70,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.omnibus.chef_version = :latest
 
-  config.vm.provision 'chef_client' do |chef|
-    # chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
-    # chef.validation_key_path = "ORGNAME-validator.pem"
-  end
-  #
   # If you're using the Opscode platform, your validator client is
   # ORGNAME-validator, replacing ORGNAME with your organization name.
   #
@@ -82,6 +77,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
+  #
+  #
+  # config.vm.provision 'chef_client' do |chef|
+  #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
+  #   chef.validation_key_path = "ORGNAME-validator.pem"
+  # end
 
   config.chef_zero.roles = 'test/fixtures/roles'
 
