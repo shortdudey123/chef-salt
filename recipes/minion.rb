@@ -2,7 +2,7 @@
 # Cookbook Name:: chef-salt
 # Recipe:: minion
 #
-# Copyright (C) 2015, Grant Ridder
+# Copyright (C) 2016, Grant Ridder
 # Copyright (C) 2014, Daryl Robbins
 #
 #
@@ -65,5 +65,5 @@ end
 execute 'wait for salt-minion' do
   command 'sleep 5'
   action :nothing
-  notifies :reload, 'ohai[reload_salt]', :immediate
+  notifies :reload, 'ohai[salt]', :immediate
 end

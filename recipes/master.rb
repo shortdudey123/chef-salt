@@ -2,7 +2,7 @@
 # Cookbook Name:: chef-salt
 # Recipe:: master
 #
-# Copyright (C) 2015, Grant Ridder
+# Copyright (C) 2016, Grant Ridder
 # Copyright (C) 2014, Daryl Robbins
 #
 #
@@ -38,7 +38,7 @@ end
 execute 'wait for salt-master' do
   command 'sleep 5'
   action :nothing
-  notifies :reload, 'ohai[reload_salt]', :immediate
+  notifies :reload, 'ohai[salt]', :immediate
 end
 
 if Chef::Config[:solo]

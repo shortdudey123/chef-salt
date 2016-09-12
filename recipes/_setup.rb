@@ -2,7 +2,7 @@
 # Cookbook Name:: chef-salt
 # Recipe:: _setup
 #
-# Copyright (C) 2015, Grant Ridder
+# Copyright (C) 2016, Grant Ridder
 # Copyright (C) 2014, Daryl Robbins
 #
 #
@@ -12,17 +12,13 @@ include_recipe 'salt::default'
 
 include_recipe 'ohai'
 
-ohai 'reload_salt' do
-  plugin 'salt'
+ohai 'salt' do
   action :nothing
 end
 
-cookbook_file "#{node['ohai']['plugin_path']}/salt.rb" do
-  source 'salt_plugin.rb'
-  owner  'root'
-  group  node['root_group'] || 'root'
-  mode   '0755'
-  notifies :reload, 'ohai[reload_salt]', :immediately
+ohai_plugin 'salt' do
+  source_file 'salt_plugin.rb'
+  notifies :reload, 'ohai[salt]', :immediately
 end
 
 case node['platform_family']

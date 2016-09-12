@@ -20,7 +20,7 @@ end
 depends 'apt'
 depends 'yum'
 depends 'yum-epel'
-depends 'ohai'
+depends 'ohai', '~> 4.0'
 
 attribute 'salt/version',
   :display_name => 'Salt Version',

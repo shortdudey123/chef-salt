@@ -8,6 +8,13 @@ describe 'Salt Key Exchange' do
   end
 end
 
+describe 'Salt Ohai plugin' do
+  describe file('/tmp/kitchen/ohai/plugins/salt.rb') do
+    it { should be_file }
+    its(:content) { should match(/^Ohai.plugin\(:Salt\) do\n/) }
+  end
+end
+
 describe 'Salt Master' do
   describe package('salt-master') do
     it { should be_installed }
