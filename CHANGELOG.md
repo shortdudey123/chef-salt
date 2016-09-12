@@ -23,6 +23,7 @@ This file is used to list changes made in each version of the Salt Cookbook
 - **[PR #21](https://github.com/shortdudey123/chef-salt/pull/21)** - Fix comment ordering in Vagrantfile
 - **[PR #22](https://github.com/shortdudey123/chef-salt/pull/22)** - Update Ohai plugin to work with Ohai 4.x cookbook
 - **[PR #23](https://github.com/shortdudey123/chef-salt/pull/23)** - Update test-kitchen OS's
+- **[PR #24](https://github.com/shortdudey123/chef-salt/pull/24)** - update Berkshelf source
 
 ## 1.1.0
 * [Issue #4](https://github.com/darylrobbins/chef-salt/issues/4): Fixed master/minion search to use role instead of roles filter
