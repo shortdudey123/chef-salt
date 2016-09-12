@@ -191,7 +191,7 @@ Install Salt master using OS package manager.
 
 ### minion
 
-Install Salt master using OS package manager.
+Install Salt minion using OS package manager.
 
 
 ## Resources/Providers
