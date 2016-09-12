@@ -36,7 +36,7 @@ This cooked has been confirmed to work on:
 
 * Ubuntu 12.04 or later
 * CentOS 5+, RedHat 5+, Scientific Linux 5+
-* Fedora 19 (minion only), 20, 21
+* Fedora 21+
 * Debian 7+ (Wheezy)
 
 ### Dependencies
@@ -232,8 +232,8 @@ In addition, you can define your own custom grains using the `node['salt']['mini
 * Author:: Daryl Robbins
 * Author:: Grant Ridder
 
-Copyright:: 2015, Grant Ridder
-
+```
+Copyright:: 2016, Grant Ridder
 Copyright:: 2014, Daryl Robbins
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -247,3 +247,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+```
