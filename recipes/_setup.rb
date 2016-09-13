@@ -43,5 +43,13 @@ when 'debian'
     end
   end
 when 'rhel'
-  include_recipe 'yum-epel' if node['platform_version'].to_i >= 5
+  minor_ver = node['salt']['version'] ? "archive/#{node['salt']['version'].split('-')[0]}" : 'latest'
+  gpg_keyname = node['platform_version'].to_i == 5 ? 'SALTSTACK-EL5-GPG-KEY' : 'SALTSTACK-GPG-KEY'
+
+  yum_repository 'saltstack-repo' do
+    description 'SaltStack repo for Red Hat Enterprise Linux $releasever'
+    baseurl "https://repo.saltstack.com/yum/redhat/$releasever/$basearch/#{minor_ver}"
+    gpgkey "https://repo.saltstack.com/yum/redhat/$releasever/$basearch/#{minor_ver}/#{gpg_keyname}.pub"
+    action :create
+  end
 end

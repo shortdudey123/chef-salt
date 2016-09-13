@@ -25,7 +25,7 @@ describe 'Salt Master' do
   end
 
   # Service check not supported in RedHat 5, however we still have the proccess check
-  unless os[:family] == 'RedHat' && os[:release] =~ /^5\./
+  unless os[:family] == 'redhat' && os[:release] =~ /^5\./
     describe service('salt-master') do
       it { should be_enabled }
       it { should be_running }
@@ -145,7 +145,7 @@ describe 'Salt Minion' do
   end
 
   # Service check not supported in RedHat 5, however we still have the proccess check
-  unless os[:family] == 'RedHat' && os[:release] =~ /^5\./
+  unless os[:family] == 'redhat' && os[:release] =~ /^5\./
     describe service('salt-minion') do
       it { should be_enabled }
       it { should be_running }

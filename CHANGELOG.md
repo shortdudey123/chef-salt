@@ -24,6 +24,7 @@ This file is used to list changes made in each version of the Salt Cookbook
 - **[PR #22](https://github.com/shortdudey123/chef-salt/pull/22)** - Update Ohai plugin to work with Ohai 4.x cookbook
 - **[PR #23](https://github.com/shortdudey123/chef-salt/pull/23)** - Update test-kitchen OS's
 - **[PR #24](https://github.com/shortdudey123/chef-salt/pull/24)** - update Berkshelf source
+- **[PR #25](https://github.com/shortdudey123/chef-salt/pull/25)** - Switch RHEL repo from epel to saltstack oficial
 
 ## 1.1.0
 * [Issue #4](https://github.com/darylrobbins/chef-salt/issues/4): Fixed master/minion search to use role instead of roles filter

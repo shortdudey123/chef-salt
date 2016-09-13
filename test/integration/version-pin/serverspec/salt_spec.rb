@@ -4,7 +4,7 @@ set :backend, :exec
 
 describe 'Salt Key Exchange' do
   describe command('salt-key --list=pre') do
-    its(:stdout) { should match(/default-/) }
+    its(:stdout) { should match(/version-pin-/) }
   end
 end
 
@@ -30,6 +30,10 @@ describe 'Salt Master' do
 
   describe process('salt-master') do
     it { should be_running }
+  end
+
+  describe command('/usr/bin/salt-master --version') do
+    its(:stdout) { should match(/^salt-master 2016.3.0 \(Boron\)\n/) }
   end
 
   describe file('/etc/salt/master') do
@@ -125,7 +129,7 @@ describe 'Salt Minion' do
   describe file('/etc/salt/minion') do
     it { should be_file }
     its(:content) { should match(/^master: 127.0.0.1/) }
-    its(:content) { should match(/id: default-/) }
+    its(:content) { should match(/id: version-pin-/) }
     its(:content) { should match(/^  environment: _default/) }
     its(:content) { should match(/^    - salt_minion/) }
     its(:content) { should match(/^  quinoa: delicious/) }

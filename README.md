@@ -42,8 +42,8 @@ This cooked has been confirmed to work on:
 ### Dependencies
 
 * apt
+* ohai
 * yum
-* yum-epel
 
 ## Attributes
 

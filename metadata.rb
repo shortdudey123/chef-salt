@@ -19,7 +19,6 @@ end
 
 depends 'apt'
 depends 'yum'
-depends 'yum-epel'
 depends 'ohai', '~> 4.0'
 
 attribute 'salt/version',
