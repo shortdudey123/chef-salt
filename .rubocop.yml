@@ -3,16 +3,9 @@ AllCops:
   Exclude:
     - vendor/**/*
 
-AlignParameters:
+Metrics/LineLength:
   Enabled: false
-Encoding:
-  Enabled: false
-HashSyntax:
-  Enabled: false
-LineLength:
-  Enabled: false
-MethodLength:
-  Max: 30
+
 Style/NumericLiterals:
   Description: >-
                  Add underscores to large numeric literals to improve their

@@ -26,6 +26,7 @@ This file is used to list changes made in each version of the Salt Cookbook
 - **[PR #24](https://github.com/shortdudey123/chef-salt/pull/24)** - update Berkshelf source
 - **[PR #25](https://github.com/shortdudey123/chef-salt/pull/25)** - Switch RHEL repo from epel to saltstack oficial
 - **[PR #26](https://github.com/shortdudey123/chef-salt/pull/26)** - Add Chefspec testing
+- **[PR #27](https://github.com/shortdudey123/chef-salt/pull/27)** - Update Rubocop rules
 
 ## 1.1.0
 * [Issue #4](https://github.com/darylrobbins/chef-salt/issues/4): Fixed master/minion search to use role instead of roles filter
