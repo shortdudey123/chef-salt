@@ -67,3 +67,8 @@ execute 'wait for salt-minion' do
   action :nothing
   notifies :reload, 'ohai[salt]', :immediate
 end
+
+# Stub for chefspec since we test each recipe in isolation
+ohai 'salt' do
+  action :nothing
+end if defined?(ChefSpec)

@@ -83,3 +83,8 @@ if node['salt']['master']['api']['enable']
     action :enable
   end
 end
+
+# Stub for chefspec since we test each recipe in isolation
+ohai 'salt' do
+  action :nothing
+end if defined?(ChefSpec)
