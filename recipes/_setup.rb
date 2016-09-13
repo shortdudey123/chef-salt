@@ -23,6 +23,10 @@ end
 
 case node['platform_family']
 when 'debian'
+  # TODO: remove apt cookbook when dropping support for Chef < 12.9
+  # apt_repository resource was added to Chef 12.9 so this will throw deprecation warnings
+  # "WARN: Chef::Provider::AptRepository already exists!  Cannot create deprecation class for LWRP provider apt_repository from cookbook apt"
+  # "WARN: AptRepository already exists!  Deprecation class overwrites Custom resource apt_repository from cookbook apt"
   include_recipe 'apt'
 
   case node['platform']
