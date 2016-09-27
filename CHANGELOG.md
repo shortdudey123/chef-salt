@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the Salt Cookbook
 
 ## Unreleased
 - **[PR #28](https://github.com/shortdudey123/chef-salt/pull/28)** - Add comments about AptRepository deprecation warning
+- **[PR #29](https://github.com/shortdudey123/chef-salt/pull/29)** - split package repository setup to its own recipe
 
 ## 2.0.0 (2016-09-13)
 - Remove CircleCI since TravisCI is already here
