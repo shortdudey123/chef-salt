@@ -27,8 +27,8 @@ module SaltCookbook
 end
 
 RSpec.configure do |config|
-  # config.platform = 'redhat'
-  # config.version = '7.2'
+  config.platform = 'redhat'
+  config.version = '7.2'
   config.include SaltCookbook::SpecHelper
 end
 
