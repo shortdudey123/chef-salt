@@ -49,7 +49,7 @@ describe 'salt::minion' do
         variables: {
           chef_environment: '_default',
           config: {
-            'id' => 'chefspec.local',
+            'id' => 'fauxhai.local',
             'grains' => {},
             'ipv6' => false,
             'user' => 'root',
