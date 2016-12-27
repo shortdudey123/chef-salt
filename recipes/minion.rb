@@ -19,10 +19,6 @@ package node['salt']['minion']['package'] do
   action :install
 end
 
-service 'salt-minion' do
-  action :enable
-end
-
 if node['salt']['minion']['master']
   master = [node['salt']['minion']['master']]
 else
@@ -59,6 +55,16 @@ template '/etc/salt/minion' do
   )
   notifies :restart, 'service[salt-minion]', :delayed
   notifies :run, 'execute[wait for salt-minion]', :delayed
+end
+
+ruby_block 'delay salt-minion service start' do
+  block do
+  end
+  notifies :start, 'service[salt-minion]'
+end
+
+service 'salt-minion' do
+  action :enable
 end
 
 # We need to wait for salt-minion to generate the key, so we can capture it
