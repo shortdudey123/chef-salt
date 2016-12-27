@@ -19,10 +19,6 @@ package node['salt']['minion']['package'] do
   action :install
 end
 
-service 'salt-minion' do
-  action :enable
-end
-
 if node['salt']['minion']['master']
   master = [node['salt']['minion']['master']]
 else
@@ -61,6 +57,16 @@ template '/etc/salt/minion' do
   notifies :run, 'execute[wait for salt-minion]', :delayed
 end
 
+ruby_block 'delay salt-minion service start' do
+  block do
+  end
+  notifies :start, 'service[salt-minion]'
+end
+
+service 'salt-minion' do
+  action :enable
+end
+
 # We need to wait for salt-minion to generate the key, so we can capture it
 execute 'wait for salt-minion' do
   command 'sleep 5'
@@ -69,6 +75,8 @@ execute 'wait for salt-minion' do
 end
 
 # Stub for chefspec since we test each recipe in isolation
-ohai 'salt' do
-  action :nothing
-end if defined?(ChefSpec)
+if defined?(ChefSpec) # ~FC023
+  ohai 'salt' do
+    action :nothing
+  end
+end
