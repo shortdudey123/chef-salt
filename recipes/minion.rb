@@ -75,6 +75,8 @@ execute 'wait for salt-minion' do
 end
 
 # Stub for chefspec since we test each recipe in isolation
-ohai 'salt' do
-  action :nothing
-end if defined?(ChefSpec)
+if defined?(ChefSpec) # ~FC023
+  ohai 'salt' do
+    action :nothing
+  end
+end
