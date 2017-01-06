@@ -77,10 +77,10 @@ describe 'salt::minion' do
             'log_datefmt_logfile' => "'%Y-%m-%d %H:%M:%S'",
             'log_fmt_console' => "'[%(levelname)-8s] %(message)s'",
             'log_fmt_logfile' => "'%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'",
-            'return' => 'mysql'
+            'return' => 'mysql',
           },
           master: %w(127.0.0.1),
-          roles: []
+          roles: [],
         }
       )
       expect(chef_run.template('/etc/salt/minion')).to notify('service[salt-minion]').to(:restart).delayed

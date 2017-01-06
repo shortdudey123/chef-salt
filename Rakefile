@@ -1,13 +1,14 @@
+require 'cookstyle'
+require 'foodcritic'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
-require 'foodcritic'
 
 desc 'RuboCop compliancy checks'
 RuboCop::RakeTask.new(:rubocop)
 
 FoodCritic::Rake::LintTask.new do |t|
   t.options = {
-    fail_tags: ['any']
+    fail_tags: ['any'],
   }
 end
 
