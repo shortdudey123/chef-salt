@@ -49,8 +49,8 @@ describe 'salt::master' do
               'ssl_key' => nil,
               'thread_pool' => 100,
               'webhook_disable_auth' => false,
-              'webhook_url' => '/hook'
-            }
+              'webhook_url' => '/hook',
+            },
           },
           config: {
             'interface' => '0.0.0.0',
@@ -113,8 +113,8 @@ describe 'salt::master' do
             'log_datefmt_logfile' => "'%Y-%m-%d %H:%M:%S'",
             'log_fmt_console' => "'[%(levelname)-8s] %(message)s'",
             'log_fmt_logfile' => "'%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'",
-            'return' => 'mysql'
-          }
+            'return' => 'mysql',
+          },
         }
       )
     end

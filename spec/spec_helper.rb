@@ -7,7 +7,6 @@ module SaltCookbook
   ###
   # StackstormCookbook Spec helpers
   module SpecHelper
-    # rubocop:disable Metrics/AbcSize
     def global_stubs_include_recipe
       # Don't worry about external cookbook dependencies
       allow_any_instance_of(Chef::Cookbook::Metadata).to receive(:depends)
@@ -22,7 +21,6 @@ module SaltCookbook
       end
       allow_any_instance_of(Chef::RunContext).to receive(:loaded_recipe).and_return(@included_recipes)
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end
 

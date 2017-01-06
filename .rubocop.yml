@@ -1,14 +1,2 @@
 AllCops:
   DisplayCopNames: true
-  Exclude:
-    - vendor/**/*
-
-Metrics/LineLength:
-  Enabled: false
-
-Style/NumericLiterals:
-  Description: >-
-                 Add underscores to large numeric literals to improve their
-                 readability.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#underscores-in-numerics'
-  MinDigits: 10

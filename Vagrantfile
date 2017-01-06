@@ -104,9 +104,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       chef.json = {
         salt: {
           minion: {
-            master: 'salt_master'
-          }
-        }
+            master: 'salt_master',
+          },
+        },
       }
     end
   end

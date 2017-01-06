@@ -78,7 +78,7 @@ default['salt']['master']['config'] = {
   'log_datefmt_logfile' => "'%Y-%m-%d %H:%M:%S'",
   'log_fmt_console' => "'[%(levelname)-8s] %(message)s'",
   'log_fmt_logfile' => "'%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'",
-  'return' => 'mysql'
+  'return' => 'mysql',
 }
 
 default['salt']['master']['api']['enable'] = false
@@ -98,5 +98,5 @@ default['salt']['master']['api']['config'] = {
   'ssl_key' => nil,
   'thread_pool' => 100,
   'webhook_disable_auth' => false,
-  'webhook_url' => '/hook'
+  'webhook_url' => '/hook',
 }
