@@ -6,6 +6,9 @@ provisioner:
   name: chef_zero
   roles_path: test/fixtures/roles
 
+verifier:
+  name: inspec
+
 platforms:
 - name: ubuntu-12.04
 - name: ubuntu-14.04
