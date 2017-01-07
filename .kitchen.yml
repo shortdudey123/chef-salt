@@ -28,32 +28,12 @@ suites:
     run_list:
       - role[salt_master]
       - role[salt_minion]
-    attributes:
-      salt:
-        minion:
-          master: 127.0.0.1
-          config:
-            grains:
-              quinoa: delicious
-              stooges:
-                - larry
-                - curly
-                - moe
   - name: version-pin
     run_list:
       - role[salt_master]
       - role[salt_minion]
     attributes:
       salt:
-        minion:
-          master: 127.0.0.1
-          config:
-            grains:
-              quinoa: delicious
-              stooges:
-                - larry
-                - curly
-                - moe
         version: 2016.3.0-1.el7
     includes:
       - centos-7.2
@@ -66,12 +46,3 @@ suites:
         master:
           api:
             enable: true
-        minion:
-          master: 127.0.0.1
-          config:
-            grains:
-              quinoa: delicious
-              stooges:
-                - larry
-                - curly
-                - moe

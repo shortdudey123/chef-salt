@@ -3,6 +3,23 @@
   "chef_type": "role",
   "json_class": "Chef::Role",
   "description": "Salt Minion",
+  "default_attributes": {
+    "salt": {
+      "minion": {
+        "master": "127.0.0.1",
+        "config": {
+          "grains": {
+            "quinoa": "delicious",
+            "stooges": [
+              "larry",
+              "curly",
+              "moe"
+            ]
+          }
+        }
+      }
+    }
+  },
   "run_list": [
     "recipe[salt::minion]"
   ]
