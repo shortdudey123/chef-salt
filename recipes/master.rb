@@ -16,10 +16,6 @@ package node['salt']['master']['package'] do
   action :install
 end
 
-service 'salt-master' do
-  action :enable
-end
-
 template '/etc/salt/master' do
   source node['salt']['master']['config_template'] || 'master.erb'
   cookbook node['salt']['master']['config_cookbook'] || 'salt'
@@ -82,6 +78,16 @@ if node['salt']['master']['api']['enable']
   service 'salt-api' do
     action :enable
   end
+end
+
+ruby_block 'delay salt-master service start' do
+  block do
+  end
+  notifies :start, 'service[salt-master]'
+end
+
+service 'salt-master' do
+  action :enable
 end
 
 # Stub for chefspec since we test each recipe in isolation
