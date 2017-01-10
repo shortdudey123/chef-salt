@@ -17,9 +17,9 @@ supports 'debian', '>= 7.0'
   supports os, '>= 5.0'
 end
 
-depends 'apt'
-depends 'yum'
+depends 'compat_resource', '>= 12.14.6'
 depends 'ohai', '~> 4.0'
 
-source_url 'https://github.com/shortdudey123/chef-salt' if respond_to?(:source_url)
-issues_url 'https://github.com/shortdudey123/chef-salt/issues' if respond_to?(:issues_url)
+source_url 'https://github.com/shortdudey123/chef-salt'
+issues_url 'https://github.com/shortdudey123/chef-salt/issues'
+chef_version '>= 12.1'
