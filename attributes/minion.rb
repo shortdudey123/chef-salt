@@ -1,6 +1,3 @@
-# Name of salt minion
-default['salt']['minion']['id'] = node.name # DEPRECATED
-
 # The master or masters to connect to. Only set if you wish to override the
 # default searching behavior.
 default['salt']['minion']['master'] = nil
@@ -22,8 +19,6 @@ default['salt']['minion']['package'] = case node['platform_family']
                                        else
                                          'salt-minion'
                                        end
-
-default['salt']['minion']['grains'] = {} # DEPRECATED
 
 default['salt']['minion']['config'] = {
   'id' => node.name,

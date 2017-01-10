@@ -41,16 +41,10 @@ This cooked has been confirmed to work on:
 
 ### Dependencies
 
-* apt
+* compat_resource
 * ohai
-* yum
 
 ## Attributes
-
-## Deprecated
-* `node['salt']['minion']['grains']` - **DEPRECATED** replaced by `node['salt']['minion']['config']['grains']`
-* `node['salt']['minion']['id']` - **DEPRECATED** replaced by `node['salt']['minion']['config']['id']`
-* `node['salt']['master']['interface']` - **DEPRECATED** replaced by `node['salt']['master']['config']['interface']`
 
 ### General
 * `node['salt']['version']` - Package version to be installed (defaults to nil for latest). This attribute applies to both the master and minion, since you'll want to keep their versions synced up
@@ -60,12 +54,10 @@ This cooked has been confirmed to work on:
 ### Minion
 * `node['salt']['minion']['master']` - Address or list of masters, if not using built-in search functionality.
 * `node['salt']['minion']['environment']` - The environment in which to search for a master; or `nil` to search all environments (defaults to the node's environment)
-* `node['salt']['minion']['grains']` - **DEPRECATED** replaced by `node['salt']['minion']['config']['grains']`
 * `node['salt']['minion']['config_cookbook']` and `node['salt']['minion']['config_template']` allow you to override the template used to generate the minion config file `/etc/salt/minion`
 * `node['salt']['minion']['install_opts']` allows you to specify install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)
-* `node['salt']['minion']['id']` - **DEPRECATED** replaced by `node['salt']['minion']['config']['id']`
 
-* `node['salt']['minion']['config'] - contains a hash of config values (see https://docs.saltstack.com/en/latest/ref/configuration/minion.html)
+* `node['salt']['minion']['config']` - contains a hash of config values (see https://docs.saltstack.com/en/latest/ref/configuration/minion.html)
 
 ### Master
 * `node['salt']['master']['api']['enable']` - install salt-api package (defaults to `false`)
@@ -75,9 +67,8 @@ This cooked has been confirmed to work on:
 * `node['salt']['minion']['environment']` - The environment in which to search for minions; or `nil` to search all environments (defaults to the node's environment)
 * `node['salt']['master']['config_cookbook']` and `node['salt']['master']['config_template']` allow you to override the template used to generate the master config file `/etc/salt/master`
 * `node['salt']['master']['install_opts']` allows you to specify install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)
-* `node['salt']['master']['interface']` - **DEPRECATED** replaced by `node['salt']['master']['config']['interface']`
 
-* `node['salt']['master']['config'] - contains a hash of config values (see https://docs.saltstack.com/en/latest/ref/configuration/master.html)
+* `node['salt']['master']['config']` - contains a hash of config values (see https://docs.saltstack.com/en/latest/ref/configuration/master.html)
 
 
 See attribute files for more supported attributes.
