@@ -32,6 +32,7 @@ template '/etc/salt/master' do
   variables(
     config: master_config
   )
+  helpers SaltCookbookHelper
   notifies :restart, 'service[salt-master]', :delayed
   notifies :restart, 'service[salt-api]', :delayed if node['salt']['master']['api']['enable']
   notifies :run, 'execute[wait for salt-master]', :delayed

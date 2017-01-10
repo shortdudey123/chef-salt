@@ -38,10 +38,10 @@ describe file('/etc/salt/master') do
   its(:content) { should match(/^max_open_files: 100000/) }
   its(:content) { should match(/^worker_threads: 5/) }
   its(:content) { should match(/^ret_port: 4506/) }
-  its(:content) { should match %r{^pidfile: /var/run/salt-master.pid} }
-  its(:content) { should match %r{^root_dir: /} }
-  its(:content) { should match %r{^pki_dir: /etc/salt/pki/master} }
-  its(:content) { should match %r{^cachedir: /var/cache/salt/master} }
+  its(:content) { should match %r{^pidfile: "/var/run/salt-master.pid"} }
+  its(:content) { should match %r{^root_dir: "/"} }
+  its(:content) { should match %r{^pki_dir: "/etc/salt/pki/master"} }
+  its(:content) { should match %r{^cachedir: "/var/cache/salt/master"} }
   its(:content) { should match(/^verify_env: true/) }
   its(:content) { should match(/^keep_jobs: 24/) }
   its(:content) { should match(/^timeout: 5/) }
@@ -50,7 +50,7 @@ describe file('/etc/salt/master') do
   its(:content) { should match(/^show_timeout: true/) }
   its(:content) { should match(/^color: true/) }
   its(:content) { should match(/^strip_colors: false/) }
-  its(:content) { should match %r{^sock_dir: /var/run/salt/master} }
+  its(:content) { should match %r{^sock_dir: "/var/run/salt/master"} }
   its(:content) { should match(/^enable_gpu_grains: false/) }
   its(:content) { should match(/^job_cache: true/) }
   its(:content) { should match(/^minion_data_cache: true/) }
@@ -62,8 +62,8 @@ describe file('/etc/salt/master') do
   its(:content) { should match(/^open_mode: false/) }
   its(:content) { should match(/^auto_accept: false/) }
   its(:content) { should match(/^autosign_timeout: 120/) }
-  its(:content) { should match %r{^autosign_file: /etc/salt/autosign.conf} }
-  its(:content) { should match %r{^autoreject_file: /etc/salt/autoreject.conf} }
+  its(:content) { should match %r{^autosign_file: "/etc/salt/autosign.conf"} }
+  its(:content) { should match %r{^autoreject_file: "/etc/salt/autoreject.conf"} }
   its(:content) { should match(/^permissive_pki_access: false/) }
   its(:content) { should match(/^sudo_acl: false/) }
   its(:content) { should match(/^token_expire: 43200/) }
@@ -82,14 +82,14 @@ describe file('/etc/salt/master') do
   its(:content) { should match(/^hash_type: md5/) }
   its(:content) { should match(/^file_buffer_size: 1048576/) }
   its(:content) { should match(/^fileserver_events: false/) }
-  its(:content) { should match %r{^log_file: /var/log/salt/master} }
-  its(:content) { should match %r{^key_logfile: /var/log/salt/key} }
+  its(:content) { should match %r{^log_file: "/var/log/salt/master"} }
+  its(:content) { should match %r{^key_logfile: "/var/log/salt/key"} }
   its(:content) { should match(/^log_level: warning/) }
   its(:content) { should match(/^log_level_logfile: warning/) }
-  its(:content) { should match(/^log_datefmt: '%H:%M:%S'/) }
-  its(:content) { should match(/^log_datefmt_logfile: '%Y-%m-%d %H:%M:%S'/) }
-  its(:content) { should match(/^log_fmt_console: '\[%\(levelname\)-8s\] %\(message\)s'/) }
-  its(:content) { should match(/^log_fmt_logfile: '%\(asctime\)s,%\(msecs\)03.0f \[%\(name\)-17s\]\[%\(levelname\)-8s\] %\(message\)s'/) }
+  its(:content) { should match(/^log_datefmt: "%H:%M:%S"/) }
+  its(:content) { should match(/^log_datefmt_logfile: "%Y-%m-%d %H:%M:%S"/) }
+  its(:content) { should match(/^log_fmt_console: "\[%\(levelname\)-8s\] %\(message\)s"/) }
+  its(:content) { should match(/^log_fmt_logfile: "%\(asctime\)s,%\(msecs\)03.0f \[%\(name\)-17s\]\[%\(levelname\)-8s\] %\(message\)s"/) }
   its(:content) { should match(/^return: mysql/) }
 
   # salt-api config
@@ -102,11 +102,9 @@ describe file('/etc/salt/master') do
   its(:content) { should match(/^  max_request_body_size: 1048576/) }
   its(:content) { should match(/^  port: 8000/) }
   its(:content) { should match(/^  socket_queue_size: 30/) }
-  its(:content) { should match(/^  ssl_crt: /) }
-  its(:content) { should match(/^  ssl_key: /) }
   its(:content) { should match(/^  thread_pool: 100/) }
   its(:content) { should match(/^  webhook_disable_auth: false/) }
-  its(:content) { should match %r{^  webhook_url: /hook} }
+  its(:content) { should match %r{^  webhook_url: "/hook"} }
 end
 
 describe port(4505) do
