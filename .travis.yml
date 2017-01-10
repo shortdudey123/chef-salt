@@ -19,24 +19,24 @@ services: docker
 
 env:
   matrix:
-  # - INSTANCE=default-centos-5 # FIXME
-  # - INSTANCE=default-centos-6 # FIXME
+  - INSTANCE=default-centos-5
+  - INSTANCE=default-centos-6
   - INSTANCE=default-centos-7
-  # - INSTANCE=default-debian-7 # FIXME
+  - INSTANCE=default-debian-7
   - INSTANCE=default-debian-8
   - INSTANCE=default-fedora-latest
   - INSTANCE=default-ubuntu-1204
   - INSTANCE=default-ubuntu-1404
-  # - INSTANCE=default-ubuntu-1604 # FIXME
-  # - INSTANCE=salt-api-centos-5 # FIXME
-  # - INSTANCE=salt-api-centos-6 # FIXME
+  - INSTANCE=default-ubuntu-1604
+  - INSTANCE=salt-api-centos-5
+  - INSTANCE=salt-api-centos-6
   - INSTANCE=salt-api-centos-7
-  # - INSTANCE=salt-api-debian-7 # FIXME
+  - INSTANCE=salt-api-debian-7
   - INSTANCE=salt-api-debian-8
   - INSTANCE=salt-api-fedora-latest
   - INSTANCE=salt-api-ubuntu-1204
   - INSTANCE=salt-api-ubuntu-1404
-  # - INSTANCE=salt-api-ubuntu-1604 # FIXME
+  - INSTANCE=salt-api-ubuntu-1604
   - INSTANCE=version-pin-centos-7
 
 before_script:
@@ -51,6 +51,13 @@ script:
   - cat .kitchen/logs/kitchen.log
 
 matrix:
+  allow_failures:
+    - env: INSTANCE=default-centos-5
+    - env: INSTANCE=default-centos-6
+    - env: INSTANCE=default-debian-7
+    - env: INSTANCE=salt-api-centos-5
+    - env: INSTANCE=salt-api-centos-6
+    - env: INSTANCE=salt-api-debian-7
   include:
     - script:
       - /opt/chefdk/bin/chef exec rake
