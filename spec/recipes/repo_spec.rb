@@ -15,11 +15,28 @@ describe 'salt::repo' do
 
     it 'creates saltstack-salt apt repository' do
       expect(chef_run).to add_apt_repository('saltstack-salt').with(
-        uri: 'http://ppa.launchpad.net/saltstack/salt/ubuntu',
+        uri: 'https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest',
         distribution: 'xenial',
         components: %w(main),
-        keyserver: 'keyserver.ubuntu.com',
-        key: '0E27C0A6'
+        key: 'https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub'
+      )
+    end
+  end
+
+  context 'ubuntu with default node attributes' do
+    let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '15.04').converge(described_recipe) }
+
+    it 'should include recipe apt' do
+      allow_any_instance_of(Chef::Recipe).to receive(:include_recipe).with('apt')
+      chef_run
+    end
+
+    it 'creates saltstack-salt apt repository' do
+      expect(chef_run).to add_apt_repository('saltstack-salt').with(
+        uri: 'https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest',
+        distribution: 'trusty',
+        components: %w(main),
+        key: 'https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub'
       )
     end
   end

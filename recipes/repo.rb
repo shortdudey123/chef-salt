@@ -8,6 +8,14 @@
 #
 #
 
+minor_ver = if node['salt']['version'].nil?
+              'latest'
+            elsif node['salt']['version'].split('-')[0].split('.').length == 2
+              node['salt']['version'].split('-')[0].split('.')[0..1].join('.')
+            elsif node['salt']['version'].split('-')[0].split('.').length == 3
+              "archive/#{node['salt']['version'].split('-')[0]}"
+            end
+
 case node['platform_family']
 when 'debian'
   # TODO: remove apt cookbook when dropping support for Chef < 12.9
@@ -18,12 +26,21 @@ when 'debian'
 
   case node['platform']
   when 'ubuntu'
+    lts = if node['platform_version'].to_f < 14.04
+            ['12.04', 'precise']
+          elsif node['platform_version'].to_f < 16.04
+            ['14.04', 'trusty']
+          else
+            ['16.04', 'xenial']
+          end
+
+    repo_uri = "https://repo.saltstack.com/apt/ubuntu/#{lts[0]}/amd64/#{minor_ver}"
+
     apt_repository 'saltstack-salt' do
-      uri          'http://ppa.launchpad.net/saltstack/salt/ubuntu'
-      distribution node['lsb']['codename']
+      uri          repo_uri
+      distribution lts[1]
       components   ['main']
-      keyserver    'keyserver.ubuntu.com'
-      key          '0E27C0A6'
+      key          "#{repo_uri}/SALTSTACK-GPG-KEY.pub"
     end
   when 'debian'
     apt_repository 'saltstack-salt' do
@@ -34,7 +51,6 @@ when 'debian'
     end
   end
 when 'rhel'
-  minor_ver = node['salt']['version'] ? "archive/#{node['salt']['version'].split('-')[0]}" : 'latest'
   gpg_keyname = node['platform_version'].to_i == 5 ? 'SALTSTACK-EL5-GPG-KEY' : 'SALTSTACK-GPG-KEY'
 
   yum_repository 'saltstack-repo' do
