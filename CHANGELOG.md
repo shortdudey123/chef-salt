@@ -3,6 +3,8 @@
 This file is used to list changes made in each version of the Salt Cookbook
 
 ## Unreleased
+
+## 2.1.0 (2017-01-09)
 - **[PR #28](https://github.com/shortdudey123/chef-salt/pull/28)** - Add comments about AptRepository deprecation warning
 - **[PR #29](https://github.com/shortdudey123/chef-salt/pull/29)** - split package repository setup to its own recipe
 - **[PR #30](https://github.com/shortdudey123/chef-salt/pull/30)** - Set default chefspec platform and version
