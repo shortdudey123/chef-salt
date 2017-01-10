@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of the Salt Cookbook
 
 ## Unreleased
+- **[PR #39](https://github.com/shortdudey123/chef-salt/pull/39)** - Remove apt and yum cookbooks for compat_resource
 
 ## 2.1.0 (2017-01-09)
 - **[PR #28](https://github.com/shortdudey123/chef-salt/pull/28)** - Add comments about AptRepository deprecation warning
