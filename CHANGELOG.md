@@ -7,6 +7,8 @@ This file is used to list changes made in each version of the Salt Cookbook
 - **[PR #29](https://github.com/shortdudey123/chef-salt/pull/29)** - split package repository setup to its own recipe
 - **[PR #30](https://github.com/shortdudey123/chef-salt/pull/30)** - Set default chefspec platform and version
 - **[PR #35](https://github.com/shortdudey123/chef-salt/pull/35)** - Switch to using ChefDK
+- **[PR #36](https://github.com/shortdudey123/chef-salt/pull/36)** - Add kitchen CI testing
+- **[PR #37](https://github.com/shortdudey123/chef-salt/pull/37)** - Update templates to v2016.11.1 salt release
 
 ## 2.0.0 (2016-09-13)
 - Remove CircleCI since TravisCI is already here

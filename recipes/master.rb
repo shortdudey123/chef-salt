@@ -20,6 +20,9 @@ service 'salt-master' do
   action :enable
 end
 
+master_config = node['salt']['master']['config'].to_h
+master_config['rest_cherrypy'] = node['salt']['master']['api']['config'].to_h if node['salt']['master']['api']['enable']
+
 template '/etc/salt/master' do
   source node['salt']['master']['config_template'] || 'master.erb'
   cookbook node['salt']['master']['config_cookbook'] || 'salt'
@@ -27,8 +30,7 @@ template '/etc/salt/master' do
   group 'root'
   mode '0644'
   variables(
-    api: node['salt']['master']['api'],
-    config: node['salt']['master']['config']
+    config: master_config
   )
   notifies :restart, 'service[salt-master]', :delayed
   notifies :restart, 'service[salt-api]', :delayed if node['salt']['master']['api']['enable']
