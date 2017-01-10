@@ -47,10 +47,12 @@ describe 'salt::minion' do
         group: 'root',
         mode: '0644',
         variables: {
-          chef_environment: '_default',
           config: {
             'id' => 'fauxhai.local',
-            'grains' => {},
+            'grains' => {
+              'environment' => '_default',
+              'role' => [],
+            },
             'ipv6' => false,
             'user' => 'root',
             'master_port' => 4506,
@@ -73,14 +75,13 @@ describe 'salt::minion' do
             'key_logfile' => '/var/log/salt/key',
             'log_level' => 'warning',
             'log_level_logfile' => 'warning',
-            'log_datefmt' => "'%H:%M:%S'",
-            'log_datefmt_logfile' => "'%Y-%m-%d %H:%M:%S'",
-            'log_fmt_console' => "'[%(levelname)-8s] %(message)s'",
-            'log_fmt_logfile' => "'%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'",
+            'log_datefmt' => '%H:%M:%S',
+            'log_datefmt_logfile' => '%Y-%m-%d %H:%M:%S',
+            'log_fmt_console' => '[%(levelname)-8s] %(message)s',
+            'log_fmt_logfile' => '%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s',
             'return' => 'mysql',
+            'master' => %w(127.0.0.1),
           },
-          master: %w(127.0.0.1),
-          roles: [],
         }
       )
       expect(chef_run.template('/etc/salt/minion')).to notify('service[salt-minion]').to(:restart).delayed

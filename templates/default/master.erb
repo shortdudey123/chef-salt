@@ -13,64 +13,37 @@
 
 # The address of the interface to bind to:
 #interface: 0.0.0.0
-<% unless @config['interface'].nil? -%>
-interface: <%= @config['interface'] %>
-<% end %>
 
 # Whether the master should listen for IPv6 connections. If this is set to True,
 # the interface option must be adjusted, too. (For example: "interface: '::'")
 #ipv6: False
-<% unless @config['ipv6'].nil? -%>
-ipv6: <%= @config['ipv6'] %>
-<% end %>
 
 # The tcp port used by the publisher:
 #publish_port: 4505
-<% unless @config['publish_port'].nil? -%>
-publish_port: <%= @config['publish_port'] %>
-<% end %>
 
 # The user under which the salt master will run. Salt will update all
 # permissions to allow the specified user to run the master. The exception is
 # the job cache, which must be deleted if this user is changed. If the
 # modified files cause conflicts, set verify_env to False.
 #user: root
-<% unless @config['user'].nil? -%>
-user: <%= @config['user'] %>
-<% end %>
 
 # The port used by the communication interface. The ret (return) port is the
 # interface used for the file server, authentication, job returns, etc.
 #ret_port: 4506
-<% unless @config['ret_port'].nil? -%>
-ret_port: <%= @config['ret_port'] %>
-<% end %>
 
 # Specify the location of the daemon process ID file:
 #pidfile: /var/run/salt-master.pid
-<% unless @config['pidfile'].nil? -%>
-pidfile: <%= @config['pidfile'] %>
-<% end %>
 
 # The root directory prepended to these options: pki_dir, cachedir,
 # sock_dir, log_file, autosign_file, autoreject_file, extension_modules,
 # key_logfile, pidfile:
 #root_dir: /
-<% unless @config['root_dir'].nil? -%>
-root_dir: <%= @config['root_dir'] %>
-<% end %>
 
 # The path to the master's configuration file.
 #conf_file: /etc/salt/master
-<% unless @config['conf_file'].nil? -%>
-conf_file: <%= @config['conf_file'] %>
-<% end %>
 
 # Directory used to store public key data:
 #pki_dir: /etc/salt/pki/master
-<% unless @config['pki_dir'].nil? -%>
-pki_dir: <%= @config['pki_dir'] %>
-<% end %>
 
 # Key cache. Increases master speed for large numbers of accepted
 # keys. Available options: 'sched'. (Updates on a fixed schedule.)
@@ -78,17 +51,11 @@ pki_dir: <%= @config['pki_dir'] %>
 # available to target for up to the length of the maintanence loop
 # which by default is 60s.
 #key_cache: ''
-<% unless @config['key_cache'].nil? -%>
-key_cache: <%= @config['key_cache'] %>
-<% end %>
 
 # Directory to store job and cache data:
 # This directory may contain sensitive data and should be protected accordingly.
 #
 #cachedir: /var/cache/salt/master
-<% unless @config['cachedir'].nil? -%>
-cachedir: <%= @config['cachedir'] %>
-<% end %>
 
 # Directory for custom modules. This directory can contain subdirectories for
 # each of Salt's module types such as "runners", "output", "wheel", "modules",
@@ -104,109 +71,64 @@ cachedir: <%= @config['cachedir'] %>
 
 # Verify and set permissions on configuration directories at startup:
 #verify_env: True
-<% unless @config['verify_env'].nil? -%>
-verify_env: <%= @config['verify_env'] %>
-<% end %>
 
 # Set the number of hours to keep old job information in the job cache:
 #keep_jobs: 24
-<% unless @config['keep_jobs'].nil? -%>
-keep_jobs: <%= @config['keep_jobs'] %>
-<% end %>
 
 # The number of seconds to wait when the client is requesting information
 # about running jobs.
 #gather_job_timeout: 10
-<% unless @config['gather_job_timeout'].nil? -%>
-gather_job_timeout: <%= @config['gather_job_timeout'] %>
-<% end %>
 
 # Set the default timeout for the salt command and api. The default is 5
 # seconds.
 #timeout: 5
-<% unless @config['timeout'].nil? -%>
-timeout: <%= @config['timeout'] %>
-<% end %>
 
 # The loop_interval option controls the seconds for the master's maintenance
 # process check cycle. This process updates file server backends, cleans the
 # job cache and executes the scheduler.
 #loop_interval: 60
-<% unless @config['loop_interval'].nil? -%>
-loop_interval: <%= @config['loop_interval'] %>
-<% end %>
 
 # Set the default outputter used by the salt command. The default is "nested".
 #output: nested
-<% unless @config['output'].nil? -%>
-output: <%= @config['output'] %>
-<% end %>
 
 # Set the default output file used by the salt command. Default is to output
 # to the CLI and not to a file. Functions the same way as the "--out-file"
 # CLI option, only sets this to a single file for all salt commands.
 #output_file: None
-<% unless @config['output_file'].nil? -%>
-output_file: <%= @config['output_file'] %>
-<% end %>
 
 # Return minions that timeout when running commands like test.ping
 #show_timeout: True
-<% unless @config['show_timeout'].nil? -%>
-show_timeout: <%= @config['show_timeout'] %>
-<% end %>
 
 # By default, output is colored. To disable colored output, set the color value
 # to False.
 #color: True
-<% unless @config['color'].nil? -%>
-color: <%= @config['color'] %>
-<% end %>
 
 # Do not strip off the colored output from nested results and state outputs
 # (true by default).
 # strip_colors: False
-<% unless @config['strip_colors'].nil? -%>
-strip_colors: <%= @config['strip_colors'] %>
-<% end %>
 
 # To display a summary of the number of minions targeted, the number of
 # minions returned, and the number of minions that did not return, set the
 # cli_summary value to True. (False by default.)
 #
 #cli_summary: False
-<% unless @config['cli_summary'].nil? -%>
-cli_summary: <%= @config['cli_summary'] %>
-<% end %>
 
 # Set the directory used to hold unix sockets:
 #sock_dir: /var/run/salt/master
-<% unless @config['sock_dir'].nil? -%>
-sock_dir: <%= @config['sock_dir'] %>
-<% end %>
 
 # The master can take a while to start up when lspci and/or dmidecode is used
 # to populate the grains for the master. Enable if you want to see GPU hardware
 # data for your master.
 # enable_gpu_grains: False
-<% unless @config['enable_gpu_grains'].nil? -%>
-enable_gpu_grains: <%= @config['enable_gpu_grains'] %>
-<% end %>
 
 # The master maintains a job cache. While this is a great addition, it can be
 # a burden on the master for larger deployments (over 5000 minions).
 # Disabling the job cache will make previously executed jobs unavailable to
 # the jobs system and is not generally recommended.
 #job_cache: True
-<% unless @config['job_cache'].nil? -%>
-job_cache: <%= @config['job_cache'] %>
-<% end %>
 
 # Cache minion grains and pillar data in the cachedir.
 #minion_data_cache: True
-<% unless @config['minion_data_cache'].nil? -%>
-minion_data_cache: <%= @config['minion_data_cache'] %>
-<% end %>
 
 # Store all returns in the given returner.
 # Setting this option requires that any returner-specific configuration also
@@ -214,18 +136,12 @@ minion_data_cache: <%= @config['minion_data_cache'] %>
 # configuration values. (See also, event_return_queue below.)
 #
 #event_return: mysql
-<% unless @config['event_return'].nil? -%>
-event_return: <%= @config['event_return'] %>
-<% end %>
 
 # On busy systems, enabling event_returns can cause a considerable load on
 # the storage system for returners. Events can be queued on the master and
 # stored in a batched fashion using a single transaction for multiple events.
 # By default, events are not queued.
 #event_return_queue: 0
-<% unless @config['event_return_queue'].nil? -%>
-event_return_queue: <%= @config['event_return_queue'] %>
-<% end %>
 
 # Only return events matching tags in a whitelist, supports glob matches.
 #event_return_whitelist:
@@ -241,9 +157,6 @@ event_return_queue: <%= @config['event_return_queue'] %>
 # memory. This value tunes the maximum size of a message allowed onto the
 # master event bus. The value is expressed in bytes.
 #max_event_size: 1048576
-<% unless @config['max_event_size'].nil? -%>
-max_event_size: <%= @config['max_event_size'] %>
-<% end %>
 
 # By default, the master AES key rotates every 24 hours. The next command
 # following a key rotation will trigger a key refresh from the minion which may
@@ -260,9 +173,6 @@ max_event_size: <%= @config['max_event_size'] %>
 # If disabled, it is recommended to handle this event by listening for the
 # 'aes_key_rotate' event with the 'key' tag and acting appropriately.
 # ping_on_rotate: False
-<% unless @config['ping_on_rotate'].nil? -%>
-ping_on_rotate: <%= @config['ping_on_rotate'] %>
-<% end %>
 
 # By default, the master deletes its cache of minion data when the key for that
 # minion is removed. To preserve the cache after key deletion, set
@@ -271,9 +181,6 @@ ping_on_rotate: <%= @config['ping_on_rotate'] %>
 # WARNING: This may have security implications if compromised minions auth with
 # a previous deleted minion ID.
 #preserve_minion_cache: False
-<% unless @config['preserve_minion_cache'].nil? -%>
-preserve_minion_cache: <%= @config['preserve_minion_cache'] %>
-<% end %>
 
 # If max_minions is used in large installations, the master might experience
 # high-load situations because of having to check the number of connected
@@ -281,9 +188,6 @@ preserve_minion_cache: <%= @config['preserve_minion_cache'] %>
 # all connected minions to all MWorker-processes and greatly improves the
 # performance of max_minions.
 # con_cache: False
-<% unless @config['con_cache'].nil? -%>
-con_cache: <%= @config['con_cache'] %>
-<% end %>
 
 # The master can include configuration from other files. To enable this,
 # pass a list of paths to this option. The paths can be either relative or
@@ -320,27 +224,18 @@ con_cache: <%= @config['con_cache'] %>
 #   raise max open files hard limit debian
 #
 #max_open_files: 100000
-<% unless @config['max_open_files'].nil? -%>
-max_open_files: <%= @config['max_open_files'] %>
-<% end %>
 
 # The number of worker threads to start. These threads are used to manage
 # return calls made from minions to the master. If the master seems to be
 # running slowly, increase the number of threads. This setting can not be
 # set lower than 3.
 #worker_threads: 5
-<% unless @config['worker_threads'].nil? -%>
-worker_threads: <%= @config['worker_threads'] %>
-<% end %>
 
 # Set the ZeroMQ high water marks
 # http://api.zeromq.org/3-2:zmq-setsockopt
 
 # The publisher interface ZeroMQPubServerChannel
 #pub_hwm: 1000
-<% unless @config['pub_hwm'].nil? -%>
-pub_hwm: <%= @config['pub_hwm'] %>
-<% end %>
 
 # These two ZMQ HWM settings, salt_event_pub_hwm and event_publisher_pub_hwm
 # are significant for masters with thousands of minions.  When these are
@@ -356,15 +251,9 @@ pub_hwm: <%= @config['pub_hwm'] %>
 
 # ZMQ high-water-mark for SaltEvent pub socket
 #salt_event_pub_hwm: 20000
-<% unless @config['salt_event_pub_hwm'].nil? -%>
-salt_event_pub_hwm: <%= @config['salt_event_pub_hwm'] %>
-<% end %>
 
 # ZMQ high-water-mark for EventPublisher pub socket
 #event_publisher_pub_hwm: 10000
-<% unless @config['event_publisher_pub_hwm'].nil? -%>
-event_publisher_pub_hwm: <%= @config['event_publisher_pub_hwm'] %>
-<% end %>
 
 # The master may allocate memory per-event and not
 # reclaim it.
@@ -374,9 +263,6 @@ event_publisher_pub_hwm: <%= @config['event_publisher_pub_hwm'] %>
 # Value: In bytes. Set to 'dynamic' to have Salt select
 # a value for you. Default is disabled.
 # ipc_write_buffer: 'dynamic'
-<% unless @config['ipc_write_buffer'].nil? -%>
-ipc_write_buffer: <%= @config['ipc_write_buffer'] %>
-<% end %>
 
 
 #####        Security settings       #####
@@ -386,41 +272,26 @@ ipc_write_buffer: <%= @config['ipc_write_buffer'] %>
 # the situation where your keys end up in a bad state. If you run in open mode
 # you do so at your own risk!
 #open_mode: False
-<% unless @config['open_mode'].nil? -%>
-open_mode: <%= @config['open_mode'] %>
-<% end %>
 
 # Enable auto_accept, this setting will automatically accept all incoming
 # public keys from the minions. Note that this is insecure.
 #auto_accept: False
-<% unless @config['auto_accept'].nil? -%>
-auto_accept: <%= @config['auto_accept'] %>
-<% end %>
 
 # Time in minutes that an incoming public key with a matching name found in
 # pki_dir/minion_autosign/keyid is automatically accepted. Expired autosign keys
 # are removed when the master checks the minion_autosign directory.
 # 0 equals no timeout
 # autosign_timeout: 120
-<% unless @config['autosign_timeout'].nil? -%>
-autosign_timeout: <%= @config['autosign_timeout'] %>
-<% end %>
 
 # If the autosign_file is specified, incoming keys specified in the
 # autosign_file will be automatically accepted. This is insecure.  Regular
 # expressions as well as globing lines are supported.
 #autosign_file: /etc/salt/autosign.conf
-<% unless @config['autosign_file'].nil? -%>
-autosign_file: <%= @config['autosign_file'] %>
-<% end %>
 
 # Works like autosign_file, but instead allows you to specify minion IDs for
 # which keys will automatically be rejected. Will override both membership in
 # the autosign_file and the auto_accept setting.
 #autoreject_file: /etc/salt/autoreject.conf
-<% unless @config['autoreject_file'].nil? -%>
-autoreject_file: <%= @config['autoreject_file'] %>
-<% end %>
 
 # Enable permissive access to the salt keys. This allows you to run the
 # master or minion as root, but have a non-root group be given access to
@@ -429,9 +300,6 @@ autoreject_file: <%= @config['autoreject_file'] %>
 # is specified, enabling permissive_pki_access will allow group access to that
 # specific file.
 #permissive_pki_access: False
-<% unless @config['permissive_pki_access'].nil? -%>
-permissive_pki_access: <%= @config['permissive_pki_access'] %>
-<% end %>
 
 # Allow users on the master access to execute specific commands on minions.
 # This setting should be treated with care since it opens up execution
@@ -468,9 +336,6 @@ permissive_pki_access: <%= @config['permissive_pki_access'] %>
 # access to the salt command.
 #
 #sudo_acl: False
-<% unless @config['sudo_acl'].nil? -%>
-sudo_acl: <%= @config['sudo_acl'] %>
-<% end %>
 
 # The external auth system uses the Salt auth modules to authenticate and
 # validate users to access areas of the Salt system.
@@ -481,9 +346,6 @@ sudo_acl: <%= @config['sudo_acl'] %>
 #
 # Time (in seconds) for a newly generated token to live. Default: 12 hours
 #token_expire: 43200
-<% unless @config['token_expire'].nil? -%>
-token_expire: <%= @config['token_expire'] %>
-<% end %>
 #
 # Allow eauth users to specify the expiry time of the tokens they generate.
 # A boolean applies to all users or a dictionary of whitelisted eauth backends
@@ -500,16 +362,10 @@ token_expire: <%= @config['token_expire'] %>
 # Allow minions to push files to the master. This is disabled by default, for
 # security purposes.
 #file_recv: False
-<% unless @config['file_recv'].nil? -%>
-file_recv: <%= @config['file_recv'] %>
-<% end %>
 
 # Set a hard-limit on the size of the files that can be pushed to the master.
 # It will be interpreted as megabytes. Default: 100
 #file_recv_max_size: 100
-<% unless @config['file_recv_max_size'].nil? -%>
-file_recv_max_size: <%= @config['file_recv_max_size'] %>
-<% end %>
 
 # Signature verification on messages published from the master.
 # This causes the master to cryptographically sign all messages published to its event
@@ -525,9 +381,6 @@ file_recv_max_size: <%= @config['file_recv_max_size'] %>
 # will be logged. This behavior went away in Salt 2014.1.0 and these two situations
 # will cause minion to throw an exception and drop the message.
 # sign_pub_messages: False
-<% unless @config['sign_pub_messages'].nil? -%>
-sign_pub_messages: <%= @config['sign_pub_messages'] %>
-<% end %>
 
 # Use TLS/SSL encrypted connection between master and minion.
 # Can be set to a dictionary containing keyword arguments corresponding to Python's
@@ -543,15 +396,9 @@ sign_pub_messages: <%= @config['sign_pub_messages'] %>
 
 # Pass in an alternative location for the salt-ssh roster file
 #roster_file: /etc/salt/roster
-<% unless @config['roster_file'].nil? -%>
-roster_file: <%= @config['roster_file'] %>
-<% end %>
 
 # The log file of the salt-ssh command:
 #ssh_log_file: /var/log/salt/ssh
-<% unless @config['ssh_log_file'].nil? -%>
-ssh_log_file: <%= @config['ssh_log_file'] %>
-<% end %>
 
 # Pass in minion option overrides that will be inserted into the SHIM for
 # salt-ssh calls. The local minion config is not used for salt-ssh. Can be
@@ -562,9 +409,6 @@ ssh_log_file: <%= @config['ssh_log_file'] %>
 # Set this to True to default to using ~/.ssh/id_rsa for salt-ssh
 # authentication with minions
 #ssh_use_home_key: False
-<% unless @config['ssh_use_home_key'].nil? -%>
-ssh_use_home_key: <%= @config['ssh_use_home_key'] %>
-<% end %>
 
 #####    Master Module Management    #####
 ##########################################
@@ -575,9 +419,6 @@ ssh_use_home_key: <%= @config['ssh_use_home_key'] %>
 
 # Enable Cython for master side modules:
 #cython_enable: False
-<% unless @config['cython_enable'].nil? -%>
-cython_enable: <%= @config['cython_enable'] %>
-<% end %>
 
 
 #####      State System settings     #####
@@ -586,9 +427,6 @@ cython_enable: <%= @config['cython_enable'] %>
 # use and what modules to use. The state_top file is defined relative to the
 # root of the base environment as defined in "File Server settings" below.
 #state_top: top.sls
-<% unless @config['state_top'].nil? -%>
-state_top: <%= @config['state_top'] %>
-<% end %>
 
 # The master_tops option replaces the external_nodes option by creating
 # a plugable system for the generation of external top data. The external_nodes
@@ -609,9 +447,6 @@ state_top: <%= @config['state_top'] %>
 
 # The renderer to use on the minions to render the state data
 #renderer: yaml_jinja
-<% unless @config['renderer'].nil? -%>
-renderer: <%= @config['renderer'] %>
-<% end %>
 
 # The Jinja renderer can strip extra carriage returns and whitespace
 # See http://jinja.pocoo.org/docs/api/#high-level-api
@@ -625,25 +460,16 @@ renderer: <%= @config['renderer'] %>
 # of a line to a block. Defaults to False, corresponds to the Jinja
 # environment init variable "lstrip_blocks".
 #jinja_lstrip_blocks: False
-<% unless @config['jinja_lstrip_blocks'].nil? -%>
-jinja_lstrip_blocks: <%= @config['jinja_lstrip_blocks'] %>
-<% end %>
 
 # The failhard option tells the minions to stop immediately after the first
 # failure detected in the state execution, defaults to False
 #failhard: False
-<% unless @config['failhard'].nil? -%>
-failhard: <%= @config['failhard'] %>
-<% end %>
 
 # The state_verbose and state_output settings can be used to change the way
 # state system data is printed to the display. By default all data is printed.
 # The state_verbose setting can be set to True or False, when set to False
 # all data that has a result of True and no changes will be suppressed.
 #state_verbose: True
-<% unless @config['state_verbose'].nil? -%>
-state_verbose: <%= @config['state_verbose'] %>
-<% end %>
 
 # The state_output setting changes if the output is the full multi line
 # output for each changed state if set to 'full', but if set to 'terse'
@@ -651,9 +477,6 @@ state_verbose: <%= @config['state_verbose'] %>
 # will be terse unless a state failed, in which case that output will be full.
 # If set to 'changes', the output will be full unless the state didn't change.
 #state_output: full
-<% unless @config['state_output'].nil? -%>
-state_output: <%= @config['state_output'] %>
-<% end %>
 
 # Automatically aggregate all states that have support for mod_aggregate by
 # setting to 'True'. Or pass a list of state module names to automatically
@@ -663,17 +486,11 @@ state_output: <%= @config['state_output'] %>
 #   - pkg
 #
 #state_aggregate: False
-<% unless @config['state_aggregate'].nil? -%>
-state_aggregate: <%= @config['state_aggregate'] %>
-<% end %>
 
 # Send progress events as each function in a state run completes execution
 # by setting to 'True'. Progress events are in the format
 # 'salt/job/<JID>/prog/<MID>/<RUN NUM>'.
 #state_events: False
-<% unless @config['state_events'].nil? -%>
-state_events: <%= @config['state_events'] %>
-<% end %>
 
 #####      File Server settings      #####
 ##########################################
@@ -727,15 +544,9 @@ state_events: <%= @config['state_events'] %>
 # Prior to changing this value, the master should be stopped and all Salt
 # caches should be cleared.
 #hash_type: sha256
-<% unless @config['hash_type'].nil? -%>
-hash_type: <%= @config['hash_type'] %>
-<% end %>
 
 # The buffer size in the file server can be adjusted here:
 #file_buffer_size: 1048576
-<% unless @config['file_buffer_size'].nil? -%>
-file_buffer_size: <%= @config['file_buffer_size'] %>
-<% end %>
 
 # A regular expression (or a list of expressions) that will be matched
 # against the file path before syncing the modules and states to the minions.
@@ -795,9 +606,6 @@ file_buffer_size: <%= @config['file_buffer_size'] %>
 # these are disabled by default, but can be easily turned on by setting this
 # flag to True
 #fileserver_events: False
-<% unless @config['fileserver_events'].nil? -%>
-fileserver_events: <%= @config['fileserver_events'] %>
-<% end %>
 
 # Git File Server Backend Configuration
 #
@@ -806,52 +614,31 @@ fileserver_events: <%= @config['fileserver_events'] %>
 # will be tried in that same order, and the first one with a compatible
 # version installed will be the provider that is used.
 #gitfs_provider: pygit2
-<% unless @config['gitfs_provider'].nil? -%>
-gitfs_provider: <%= @config['gitfs_provider'] %>
-<% end %>
 
 # Along with gitfs_password, is used to authenticate to HTTPS remotes.
 # gitfs_user: ''
-<% unless @config['gitfs_user'].nil? -%>
-gitfs_user: <%= @config['gitfs_user'] %>
-<% end %>
 
 # Along with gitfs_user, is used to authenticate to HTTPS remotes.
 # This parameter is not required if the repository does not use authentication.
 #gitfs_password: ''
-<% unless @config['gitfs_password'].nil? -%>
-gitfs_password: <%= @config['gitfs_password'] %>
-<% end %>
 
 # By default, Salt will not authenticate to an HTTP (non-HTTPS) remote.
 # This parameter enables authentication over HTTP. Enable this at your own risk.
 #gitfs_insecure_auth: False
-<% unless @config['gitfs_insecure_auth'].nil? -%>
-gitfs_insecure_auth: <%= @config['gitfs_insecure_auth'] %>
-<% end %>
 
 # Along with gitfs_privkey (and optionally gitfs_passphrase), is used to
 # authenticate to SSH remotes. This parameter (or its per-remote counterpart)
 # is required for SSH remotes.
 #gitfs_pubkey: ''
-<% unless @config['gitfs_pubkey'].nil? -%>
-gitfs_pubkey: <%= @config['gitfs_pubkey'] %>
-<% end %>
 
 # Along with gitfs_pubkey (and optionally gitfs_passphrase), is used to
 # authenticate to SSH remotes. This parameter (or its per-remote counterpart)
 # is required for SSH remotes.
 #gitfs_privkey: ''
-<% unless @config['gitfs_privkey'].nil? -%>
-gitfs_privkey: <%= @config['gitfs_privkey'] %>
-<% end %>
 
 # This parameter is optional, required only when the SSH key being used to
 # authenticate is protected by a passphrase.
 #gitfs_passphrase: ''
-<% unless @config['gitfs_passphrase'].nil? -%>
-gitfs_passphrase: <%= @config['gitfs_passphrase'] %>
-<% end %>
 
 # When using the git fileserver backend at least one git remote needs to be
 # defined. The user running the salt master will need read access to the repo.
@@ -1137,15 +924,9 @@ gitfs_passphrase: <%= @config['gitfs_passphrase'] %>
 #log_file: /var/log/salt/master
 #log_file: file:///dev/log
 #log_file: udp://loghost:10514
-<% unless @config['log_file'].nil? -%>
-log_file: <%= @config['log_file'] %>
-<% end %>
 
 #log_file: /var/log/salt/master
 #key_logfile: /var/log/salt/key
-<% unless @config['key_logfile'].nil? -%>
-key_logfile: <%= @config['key_logfile'] %>
-<% end %>
 
 # The level of messages to send to the console.
 # One of 'garbage', 'trace', 'debug', info', 'warning', 'error', 'critical'.
@@ -1154,28 +935,16 @@ key_logfile: <%= @config['key_logfile'] %>
 # ['garbage', 'trace', 'debug']
 #
 #log_level: warning
-<% unless @config['log_level'].nil? -%>
-log_level: <%= @config['log_level'] %>
-<% end %>
 
 # The level of messages to send to the log file.
 # One of 'garbage', 'trace', 'debug', info', 'warning', 'error', 'critical'.
 # If using 'log_granular_levels' this must be set to the highest desired level.
 #log_level_logfile: warning
-<% unless @config['log_level_logfile'].nil? -%>
-log_level_logfile: <%= @config['log_level_logfile'] %>
-<% end %>
 
 # The date and time format used in log messages. Allowed date/time formatting
 # can be seen here: http://docs.python.org/library/time.html#time.strftime
 #log_datefmt: '%H:%M:%S'
 #log_datefmt_logfile: '%Y-%m-%d %H:%M:%S'
-<% unless @config['log_datefmt'].nil? -%>
-log_datefmt: <%= @config['log_datefmt'] %>
-<% end %>
-<% unless @config['log_datefmt_logfile'].nil? -%>
-log_datefmt_logfile: <%= @config['log_datefmt_logfile'] %>
-<% end %>
 
 # The format of the console logging messages. Allowed formatting options can
 # be seen here: http://docs.python.org/library/logging.html#logrecord-attributes
@@ -1195,12 +964,6 @@ log_datefmt_logfile: <%= @config['log_datefmt_logfile'] %>
 #log_fmt_console: '[%(levelname)-8s] %(message)s'
 #
 #log_fmt_logfile: '%(asctime)s,%(msecs)03d [%(name)-17s][%(levelname)-8s] %(message)s'
-<% unless @config['log_fmt_console'].nil? -%>
-log_fmt_console: <%= @config['log_fmt_console'] %>
-<% end %>
-<% unless @config['log_fmt_logfile'].nil? -%>
-log_fmt_logfile: <%= @config['log_fmt_logfile'] %>
-<% end %>
 
 # This can be used to control logging levels more specificically.  This
 # example sets the main salt library at the 'warning' level, but sets
@@ -1265,24 +1028,15 @@ log_fmt_logfile: <%= @config['log_fmt_logfile'] %>
 ############################################
 # Which returner(s) will be used for minion's result:
 #return: mysql
-<% unless @config['return'].nil? -%>
-return: <%= @config['return'] %>
-<% end %>
 
 
 ######    Miscellaneous  settings     ######
 ############################################
 # Default match type for filtering events tags: startswith, endswith, find, regex, fnmatch
 #event_match_type: startswith
-<% unless @config['event_match_type'].nil? -%>
-event_match_type: <%= @config['event_match_type'] %>
-<% end %>
 
 # Save runner returns to the job cache
 #runner_returns: True
-<% unless @config['runner_returns'].nil? -%>
-runner_returns: <%= @config['runner_returns'] %>
-<% end %>
 
 # Permanently include any available Python 3rd party modules into Salt Thin
 # when they are generated for Salt-SSH or other purposes.
@@ -1290,9 +1044,4 @@ runner_returns: <%= @config['runner_returns'] %>
 # The value of the parameters can be either one module or a comma separated list of them.
 #thin_extra_mods: foo,bar
 
-<% unless @config['rest_cherrypy'].nil? -%>
-rest_cherrypy:
-  <% @config['rest_cherrypy'].sort.each do |key, value| -%>
-  <%= key %>: <%= value %>
-  <% end %>
-<% end %>
+<%= salt_config @config -%>

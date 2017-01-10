@@ -45,6 +45,11 @@ end
 
 raise 'No salt-master found' unless master && master.length >= 1
 
+config = node['salt']['minion']['config'].to_hash
+config['grains']['environment'] = node.chef_environment
+config['grains']['role'] = node['roles'].to_a
+config['master'] = master
+
 template '/etc/salt/minion' do
   source node['salt']['minion']['config_template'] || 'minion.erb'
   cookbook node['salt']['minion']['config_cookbook'] || 'salt'
@@ -52,11 +57,9 @@ template '/etc/salt/minion' do
   group 'root'
   mode '0644'
   variables(
-    chef_environment: node.chef_environment,
-    config: node['salt']['minion']['config'],
-    master: master,
-    roles: node['roles']
+    config: config
   )
+  helpers SaltCookbookHelper
   notifies :restart, 'service[salt-minion]', :delayed
   notifies :run, 'execute[wait for salt-minion]', :delayed
 end

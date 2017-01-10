@@ -50,9 +50,9 @@ default['salt']['minion']['config'] = {
   'key_logfile' => '/var/log/salt/key',
   'log_level' => 'warning',
   'log_level_logfile' => 'warning',
-  'log_datefmt' => "'%H:%M:%S'",
-  'log_datefmt_logfile' => "'%Y-%m-%d %H:%M:%S'",
-  'log_fmt_console' => "'[%(levelname)-8s] %(message)s'",
-  'log_fmt_logfile' => "'%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'",
+  'log_datefmt' => '%H:%M:%S',
+  'log_datefmt_logfile' => '%Y-%m-%d %H:%M:%S',
+  'log_fmt_console' => '[%(levelname)-8s] %(message)s',
+  'log_fmt_logfile' => '%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s',
   'return' => 'mysql',
 }
