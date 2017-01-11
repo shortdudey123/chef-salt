@@ -3,6 +3,20 @@
   "chef_type": "role",
   "json_class": "Chef::Role",
   "description": "Salt Master",
+  "default_attributes": {
+    "salt": {
+      "master": {
+        "api": {
+          "config": {
+            "debug": false
+          }
+        },
+        "config": {
+          "interface": "0.0.0.0"
+        }
+      }
+    }
+  },
   "run_list": [
     "recipe[salt::master]"
   ]
