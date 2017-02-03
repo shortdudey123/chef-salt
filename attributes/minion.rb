@@ -24,3 +24,17 @@ default['salt']['minion']['config'] = {
   'id' => node.name,
   'grains' => {},
 }
+
+default['salt']['minion']['api'] = {
+  'host' => 'localhost',
+  'port' => 8000,
+  'username' => 'saltapi',
+  'eauth' => 'pam',
+  'use_ssl' => false,
+  'verify' => false,
+  'databag' => {
+    'name' => 'salt',
+    'item' => 'credentials',
+    'key' => 'api_password',
+  },
+}

@@ -14,6 +14,16 @@ default['salt']['master']['package'] = case node['platform_family']
                                          'salt-master'
                                        end
 
+default['salt']['master']['api']['user'] = {
+  'enable' => false,
+  'name' => 'saltapi',
+  'password' => '$1$NVTrHnvI$SM9u1HFbwDei0ku5TJUM21',
+  'manage_home' => false,
+  'system' => true,
+  'shell' => '/sbin/nologin',
+  'comment' => 'Default Salt API User',
+}
+
 default['salt']['master']['config'] = {}
 
 default['salt']['master']['api']['enable'] = false

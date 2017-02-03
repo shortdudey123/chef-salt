@@ -1,3 +1,9 @@
+require 'uri'
+require 'net/http'
+require 'net/https'
+require 'json'
+require 'mixlib/log'
+
 module SaltCookbookHelper
   def salt_config(config)
     config.to_hash.compact.sorted_hash.to_yaml
@@ -37,5 +43,53 @@ class Hash
       end
       new_hash
     end
+  end
+end
+
+def salt_accept_key(options)
+  (eauth = options['eauth']) || 'pam'
+  (username = options['username']) || raise('must provide username')
+  (password = options['password']) || raise('must provide password')
+  (minion = options['minion']) || raise('must provide minion')
+  (host = options['host']) || raise('must provide host')
+  (port = options['port']) || raise('must provide port')
+
+  headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
+  login_data = { 'username' => username, 'password' => password, 'eauth' => eauth }.to_json
+  accept_data = { 'fun' => 'key.accept', 'client' => 'wheel', 'tgt' => '*', 'match' => minion }.to_json
+
+  begin
+    Chef::Log.info("Connecting to host=#{host}, port=#{port}, use_ssl=#{options['use_ssl']}, verify=#{options['verify']}")
+
+    https = Net::HTTP.new(host, port)
+    https.use_ssl = options['use_ssl']
+    https.verify_mode = OpenSSL::SSL::VERIFY_NONE unless options['verify']
+
+    login = https.post('/login', login_data, headers)
+
+    if login.code == '200'
+      cookie = login.response['set-cookie'].split('; ')[0]
+      headers['Cookie'] = cookie
+
+      accept = https.post('/', accept_data, headers)
+      if accept.code == '200'
+        minions = JSON.parse(accept.body)['return'][0]['data']['return']['minions']
+
+        if minions && minions.include?(minion)
+          Chef::Log.info("accepted key for minion #{minion}")
+        else
+          Chef::Log.warn("failed to accept key for minion #{minion}, check minion key status on master")
+        end
+      else
+        Chef::Log.warn("failed to accept minion key, got http respose code #{accept.code}")
+        Chef::Log.warn(accept.body)
+      end
+    else
+      Chef::Log.warn("failed to login, got http response code #{login.code}")
+      Chef::Log.warn(login.body)
+    end
+  rescue => error
+    Chef::Log.warn('failed minion key accept attempt, got error')
+    Chef::Log.warn(error)
   end
 end
