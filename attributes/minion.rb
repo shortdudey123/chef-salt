@@ -25,7 +25,7 @@ default['salt']['minion']['config'] = {
   'grains' => {},
 }
 
-default['salt']['minion']['api'] = {
+default['salt']['minion']['master_api'] = {
   'host' => 'localhost',
   'port' => 8000,
   'username' => 'saltapi',

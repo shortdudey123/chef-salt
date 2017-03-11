@@ -70,6 +70,15 @@ describe 'salt::minion' do
       )
     end
 
+    it 'notifies run accept minion key check' do
+      expect(chef_run).to run_ruby_block('delayed notify ruby_block accept_salt_key')
+      expect(chef_run.ruby_block('delayed notify ruby_block accept_salt_key')).to notify('ruby_block[accept_salt_key]').to(:run).delayed
+    end
+
+    it 'run accept minion key check' do
+      expect(chef_run).to_not run_ruby_block('accept_salt_key')
+    end
+
     it 'should stub ohai salt for chefspec' do
       expect(chef_run).to_not reload_ohai('salt')
     end

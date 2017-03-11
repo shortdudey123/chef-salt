@@ -77,19 +77,7 @@ ohai 'salt' do
   action :nothing
 end if defined?(ChefSpec)
 
-api_password = node['salt']['key_accept_method'] == 'api_key_accept' ? Chef::EncryptedDataBagItem.load(node['salt']['minion']['api']['databag']['name'], node['salt']['minion']['api']['databag']['item'])[node['salt']['minion']['api']['databag']['key']] : nil
-
-# salt api key accept
-options = { 'host' => node['salt']['minion']['api']['host'],
-            'port' => node['salt']['minion']['api']['port'],
-            'username' => node['salt']['minion']['api']['username'],
-            'password' => api_password,
-            'minion' => node['hostname'],
-            'eauth' => node['salt']['minion']['api']['eauth'],
-            'use_ssl' => node['salt']['minion']['api']['use_ssl'],
-            'verify' => node['salt']['minion']['api']['verify'] }
-
-ruby_block 'delayed notify' do
+ruby_block 'delayed notify ruby_block accept_salt_key' do
   block do
   end
   notifies :run, 'ruby_block[accept_salt_key]'
@@ -97,8 +85,8 @@ end
 
 ruby_block 'accept_salt_key' do
   block do
-    salt_accept_key(options)
+    salt_key_check
   end
-  only_if { node['salt']['key_accept_method'] == 'api_key_accept' && Mixlib::ShellOut.new('salt-call test.ping').run_command.exitstatus != 0 }
+  only_if { node['salt']['key_accept_method'] == 'api_key_accept' }
   action :nothing
 end

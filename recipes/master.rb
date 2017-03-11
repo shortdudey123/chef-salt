@@ -8,7 +8,27 @@
 #
 #
 
+if node['salt']['master']['api']['enable']
+  if Chef::Resource::ChefGem.method_defined?(:compile_time)
+    chef_gem 'salt-api' do
+      compile_time true
+    end
+  else
+    chef_gem 'salt-api' do
+      action :nothing
+    end.run_action(:install)
+  end
+end
+
 include_recipe 'salt::_setup'
+
+node.default['salt']['master']['config']['external_auth'] = {
+  'pam' => {
+    node['salt']['master']['api']['user']['name'] => [
+      '@wheel',
+    ],
+  },
+} if node['salt']['master']['api']['user']['enable']
 
 package node['salt']['master']['package'] do
   version node['salt']['version'] if node['salt']['version']
@@ -18,15 +38,6 @@ end
 
 service 'salt-master' do
   action :enable
-end
-
-user node['salt']['master']['api']['user']['name'] do
-  comment node['salt']['master']['api']['user']['comment']
-  shell node['salt']['master']['api']['user']['shell']
-  password node['salt']['master']['api']['user']['password']
-  manage_home node['salt']['master']['api']['user']['manage_home']
-  system node['salt']['master']['api']['user']['system']
-  only_if { node['salt']['master']['api']['enable'] == true && node['salt']['master']['api']['user']['enable'] == true }
 end
 
 master_config = node['salt']['master']['config'].to_h
@@ -93,31 +104,19 @@ if node['salt']['master']['api']['enable']
     action :install
   end
 
+  if node['salt']['master']['api']['user']['enable'] # ~FC023
+    user node['salt']['master']['api']['user']['name'] do
+      comment node['salt']['master']['api']['user']['comment']
+      shell node['salt']['master']['api']['user']['shell']
+      password node['salt']['master']['api']['user']['password']
+      manage_home node['salt']['master']['api']['user']['manage_home']
+      system node['salt']['master']['api']['user']['system']
+    end
+  end
+
   service 'salt-api' do
     action :enable
   end
-end
-
-# salt-api default user acl
-# TODO: to be replaced by LWRP `external_auth`
-default_user_acl = {
-  'external_auth' => {
-    'pam' => {
-      'saltapi' => [
-        '.*',
-        '@wheel',
-        '@runner',
-      ],
-    },
-  },
-}.to_yaml
-
-file 'default-api-user.conf' do
-  path '/etc/salt/master.d/default-api-user.conf'
-  content default_user_acl
-  notifies :restart, 'service[salt-master]'
-  notifies :restart, 'service[salt-api]' if node['salt']['master']['api']['enable']
-  only_if { node['salt']['master']['api']['enable'] == true && node['salt']['master']['api']['user']['enable'] == true }
 end
 
 # Stub for chefspec since we test each recipe in isolation

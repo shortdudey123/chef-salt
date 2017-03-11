@@ -46,48 +46,42 @@ class Hash
   end
 end
 
-def salt_accept_key(options)
-  (eauth = options['eauth']) || 'pam'
-  (username = options['username']) || raise('must provide username')
-  (password = options['password']) || raise('must provide password')
-  (minion = options['minion']) || raise('must provide minion')
-  (host = options['host']) || raise('must provide host')
-  (port = options['port']) || raise('must provide port')
+def salt_key_check
+  # check minion key
+  if Mixlib::ShellOut.new('salt-call test.ping | grep -o True').run_command.exitstatus == 0
+    Chef::Log.info('salt-call test.ping passed')
+  else
+    Chef::Log.info('salt-call test.ping failed')
+    salt_accept_key
+  end
+end
 
-  headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
-  login_data = { 'username' => username, 'password' => password, 'eauth' => eauth }.to_json
-  accept_data = { 'fun' => 'key.accept', 'client' => 'wheel', 'tgt' => '*', 'match' => minion }.to_json
+def salt_accept_key
+  # make api call to salt master
+  # to accept minion key
+  require 'salt/api'
+  password = (node['salt']['key_accept_method'] == 'api_key_accept' ? Chef::EncryptedDataBagItem.load(node['salt']['minion']['master_api']['databag']['name'], node['salt']['minion']['master_api']['databag']['item'])[node['salt']['minion']['master_api']['databag']['key']] : nil) || raise('unable to determine password')
+
+  (eauth = node['salt']['minion']['master_api']['eauth']) || 'pam'
+  (username = node['salt']['minion']['master_api']['username']) || raise('must provide username')
+  (minion = node['salt']['minion']['config']['id']) || raise('must provide minion')
+  (host = node['salt']['minion']['master_api']['host']) || raise('must provide host')
+  (port = node['salt']['minion']['master_api']['port']) || raise('must provide port')
+  (use_ssl = node['salt']['minion']['master_api']['use_ssl']) || false
+
+  Salt::Api.configure do |config|
+    config.hostname = host
+    config.port = port
+    config.username = username
+    config.password = password
+    config.eauth = eauth
+    config.use_ssl = use_ssl
+  end
+
+  accept_data = { 'fun' => 'key.accept', 'client' => 'wheel', 'tgt' => '*', 'match' => minion }
 
   begin
-    Chef::Log.info("Connecting to host=#{host}, port=#{port}, use_ssl=#{options['use_ssl']}, verify=#{options['verify']}")
-
-    https = Net::HTTP.new(host, port)
-    https.use_ssl = options['use_ssl']
-    https.verify_mode = OpenSSL::SSL::VERIFY_NONE unless options['verify']
-
-    login = https.post('/login', login_data, headers)
-
-    if login.code == '200'
-      cookie = login.response['set-cookie'].split('; ')[0]
-      headers['Cookie'] = cookie
-
-      accept = https.post('/', accept_data, headers)
-      if accept.code == '200'
-        minions = JSON.parse(accept.body)['return'][0]['data']['return']['minions']
-
-        if minions && minions.include?(minion)
-          Chef::Log.info("accepted key for minion #{minion}")
-        else
-          Chef::Log.warn("failed to accept key for minion #{minion}, check minion key status on master")
-        end
-      else
-        Chef::Log.warn("failed to accept minion key, got http respose code #{accept.code}")
-        Chef::Log.warn(accept.body)
-      end
-    else
-      Chef::Log.warn("failed to login, got http response code #{login.code}")
-      Chef::Log.warn(login.body)
-    end
+    Salt::Api.run(accept_data)
   rescue => error
     Chef::Log.warn('failed minion key accept attempt, got error')
     Chef::Log.warn(error)
