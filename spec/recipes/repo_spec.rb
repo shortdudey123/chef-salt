@@ -59,19 +59,7 @@ describe 'salt::repo' do
     end
   end
 
-  context 'centos 5 with default node attributes' do
-    let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '5.11').converge(described_recipe) }
-
-    it 'creates saltstack-salt yum repository' do
-      expect(chef_run).to create_yum_repository('saltstack-repo').with(
-        description: 'SaltStack repo for Red Hat Enterprise Linux $releasever',
-        baseurl: 'https://repo.saltstack.com/yum/redhat/$releasever/$basearch/latest',
-        gpgkey: 'https://repo.saltstack.com/yum/redhat/$releasever/$basearch/latest/SALTSTACK-EL5-GPG-KEY.pub'
-      )
-    end
-  end
-
-  context 'centos > 5 with default node attributes' do
+  context 'centos with default node attributes' do
     let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '7.2.1511').converge(described_recipe) }
 
     it 'creates saltstack-salt yum repository' do

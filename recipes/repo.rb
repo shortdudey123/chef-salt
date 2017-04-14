@@ -45,12 +45,10 @@ when 'debian'
     end
   end
 when 'rhel'
-  gpg_keyname = node['platform_version'].to_i == 5 ? 'SALTSTACK-EL5-GPG-KEY' : 'SALTSTACK-GPG-KEY'
-
   yum_repository 'saltstack-repo' do
     description 'SaltStack repo for Red Hat Enterprise Linux $releasever'
     baseurl "https://repo.saltstack.com/yum/redhat/$releasever/$basearch/#{minor_ver}"
-    gpgkey "https://repo.saltstack.com/yum/redhat/$releasever/$basearch/#{minor_ver}/#{gpg_keyname}.pub"
+    gpgkey "https://repo.saltstack.com/yum/redhat/$releasever/$basearch/#{minor_ver}/SALTSTACK-GPG-KEY.pub"
     action :create
   end
 end
