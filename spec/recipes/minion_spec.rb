@@ -3,6 +3,9 @@ require 'spec_helper'
 describe 'salt::minion' do
   before do
     global_stubs_include_recipe
+    cookbook_root = File.expand_path('../../../test/integration/default', __FILE__)
+    Chef::Config[:data_bag_path] = File.join(cookbook_root, 'data_bags')
+    Chef::Config[:encrypted_data_bag_secret] = File.join(cookbook_root, 'encrypted_data_bag_secret')
   end
 
   context 'with default node attributes' do
@@ -65,6 +68,15 @@ describe 'salt::minion' do
       expect(chef_run).to_not run_execute('wait for salt-minion').with(
         command: 'sleep 5'
       )
+    end
+
+    it 'notifies run accept minion key check' do
+      expect(chef_run).to run_ruby_block('delayed notify ruby_block accept_salt_key')
+      expect(chef_run.ruby_block('delayed notify ruby_block accept_salt_key')).to notify('ruby_block[accept_salt_key]').to(:run).delayed
+    end
+
+    it 'run accept minion key check' do
+      expect(chef_run).to_not run_ruby_block('accept_salt_key')
     end
 
     it 'should stub ohai salt for chefspec' do

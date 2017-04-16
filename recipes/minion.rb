@@ -11,6 +11,7 @@
 # TODO: call sync grains command in Salt periodically to ensure the autmatic
 # grains stay in sync.
 
+require 'mixlib/shellout'
 include_recipe 'salt::_setup'
 
 package node['salt']['minion']['package'] do
@@ -75,3 +76,17 @@ end
 ohai 'salt' do
   action :nothing
 end if defined?(ChefSpec)
+
+ruby_block 'delayed notify ruby_block accept_salt_key' do
+  block do
+  end
+  notifies :run, 'ruby_block[accept_salt_key]'
+end
+
+ruby_block 'accept_salt_key' do
+  block do
+    salt_key_check
+  end
+  only_if { node['salt']['key_accept_method'] == 'api_key_accept' }
+  action :nothing
+end

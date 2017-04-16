@@ -50,6 +50,9 @@ This cooked has been confirmed to work on:
 * `node['salt']['version']` - Package version to be installed (defaults to nil for latest). This attribute applies to both the master and minion, since you'll want to keep their versions synced up
 * `node['salt']['role']['master']` - Salt master role (defaults to salt_master)
 * `node['salt']['role']['minion']` - Salt minion role (defaults to salt_minion)
+* `node['salt']['key_accept_method']` - Salt Master Minion Key Accept Method (defaults to pub_key_sync, options are pub_key_sync, api_key_accept)
+  - `pub_key_sync` method uses Ohai to set Node Attributes for Salt Master to Accept Key
+  - `api_key_accept` method uses Salt Master API to Accept Minion Key
 
 ### Minion
 * `node['salt']['minion']['master']` - Address or list of masters, if not using built-in search functionality.
@@ -58,6 +61,16 @@ This cooked has been confirmed to work on:
 * `node['salt']['minion']['install_opts']` allows you to specify install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)
 
 * `node['salt']['minion']['config']` - contains a hash of config values (see https://docs.saltstack.com/en/latest/ref/configuration/minion.html)
+* `node['salt']['minion']['api']['host']` - Salt Master Rest API Host (defaults to localhost)
+* `node['salt']['minion']['api']['port']` - Salt Master Rest API Port (defaults to 8000)
+* `node['salt']['minion']['api']['username']` - Salt Master Rest API Username (defaults to saltapi)
+* `node['salt']['minion']['api']['eauth']` - Salt Master Rest API user pam type (defaults to pam)
+* `node['salt']['minion']['api']['use_ssl']` - Salt Master Rest API Enable SSL (defaults to false)
+* `node['salt']['minion']['api']['verify']` - Salt Master Rest API Enable SSL Verify (defaults to false)
+* `node['salt']['master']['api']['user']['databag']['name']` - Salt Master API User Credentials Encrypted Data Bag Name (defaults to salt)
+* `node['salt']['master']['api']['user']['databag']['item']` - Salt Master API User Credentials Encrypted Data Bag Item (defaults to credentials)
+* `node['salt']['master']['api']['user']['databag']['key']` - Salt Master API User Credentials Password Encrypted Data Bag Item Key name (defaults to `node['salt']['master']['api']['user']['name']`)
+
 
 ### Master
 * `node['salt']['master']['api']['enable']` - install salt-api package (defaults to `false`)
@@ -69,6 +82,13 @@ This cooked has been confirmed to work on:
 * `node['salt']['master']['install_opts']` allows you to specify install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)
 
 * `node['salt']['master']['config']` - contains a hash of config values (see https://docs.saltstack.com/en/latest/ref/configuration/master.html)
+* `node['salt']['master']['api']['user']['enable']` - Setup Salt Master API user used on Minion to accept Key (defaults to false)
+* `node['salt']['master']['api']['user']['name']` - Salt Master API user name (defaults to saltapi)
+* `node['salt']['master']['api']['user']['password']` - Salt Master Rest API Password Hash
+* `node['salt']['master']['api']['user']['manage_home']` - Salt Master API user resource attribute (defaults to false)
+* `node['salt']['master']['api']['user']['system']` - Salt Master API user resource attribute (defaults to true)
+* `node['salt']['master']['api']['user']['shell']` - Salt Master API user resource attribute (defaults to /sbin/nologin)
+* `node['salt']['master']['api']['user']['comment']` - Salt Master API user resource attribute (defaults to Default Salt API User)
 
 
 See attribute files for more supported attributes.

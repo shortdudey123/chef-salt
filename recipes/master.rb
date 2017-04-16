@@ -8,7 +8,27 @@
 #
 #
 
+if node['salt']['master']['api']['enable']
+  if Chef::Resource::ChefGem.method_defined?(:compile_time)
+    chef_gem 'salt-api' do
+      compile_time true
+    end
+  else
+    chef_gem 'salt-api' do
+      action :nothing
+    end.run_action(:install)
+  end
+end
+
 include_recipe 'salt::_setup'
+
+node.default['salt']['master']['config']['external_auth'] = {
+  'pam' => {
+    node['salt']['master']['api']['user']['name'] => [
+      '@wheel',
+    ],
+  },
+} if node['salt']['master']['api']['user']['enable']
 
 package node['salt']['master']['package'] do
   version node['salt']['version'] if node['salt']['version']
@@ -44,33 +64,35 @@ execute 'wait for salt-master' do
   notifies :reload, 'ohai[salt]', :immediate
 end
 
-if Chef::Config[:solo]
-  log 'Salt key exchange not supported on Chef solo' do
-    level :warn
-  end
-else
-  minion_search = "role:#{node['salt']['role']['minion']}"
-  if node['salt']['master']['environment']
-    minion_search += " AND chef_environment:#{node['salt']['master']['environment']}"
-  end
-
-  minions = search(:node, minion_search)
-
-  log "Synchronizing keys for #{minions.length} minions"
-
-  # Add minion keys to master PKI
-  minions.each do |minion|
-    next unless minion['salt'] && minion['salt']['public_key']
-
-    file "/etc/salt/pki/master/minions/#{minion['salt']['minion']['config']['id']}" do
-      action :create
-      owner 'root'
-      group 'root'
-      mode '0644'
-      content minion['salt']['public_key']
+if node['salt']['key_accept_method'] == 'pub_key_sync'
+  if Chef::Config[:solo]
+    log 'Salt key exchange not supported on Chef solo' do
+      level :warn
     end
-    file "/etc/salt/pki/master/minions_pre/#{minion['salt']['minion']['config']['id']}" do
-      action :delete
+  else
+    minion_search = "role:#{node['salt']['role']['minion']}"
+    if node['salt']['master']['environment']
+      minion_search += " AND chef_environment:#{node['salt']['master']['environment']}"
+    end
+
+    minions = search(:node, minion_search)
+
+    log "Synchronizing keys for #{minions.length} minions"
+
+    # Add minion keys to master PKI
+    minions.each do |minion|
+      next unless minion['salt'] && minion['salt']['public_key']
+
+      file "/etc/salt/pki/master/minions/#{minion['salt']['minion']['config']['id']}" do
+        action :create
+        owner 'root'
+        group 'root'
+        mode '0644'
+        content minion['salt']['public_key']
+      end
+      file "/etc/salt/pki/master/minions_pre/#{minion['salt']['minion']['config']['id']}" do
+        action :delete
+      end
     end
   end
 end
@@ -80,6 +102,16 @@ if node['salt']['master']['api']['enable']
     version node['salt']['version'] if node['salt']['version']
     options node['salt']['master']['api']['install_opts'] unless node['salt']['master']['api']['install_opts'].nil?
     action :install
+  end
+
+  if node['salt']['master']['api']['user']['enable'] # ~FC023
+    user node['salt']['master']['api']['user']['name'] do
+      comment node['salt']['master']['api']['user']['comment']
+      shell node['salt']['master']['api']['user']['shell']
+      password node['salt']['master']['api']['user']['password']
+      manage_home node['salt']['master']['api']['user']['manage_home']
+      system node['salt']['master']['api']['user']['system']
+    end
   end
 
   service 'salt-api' do

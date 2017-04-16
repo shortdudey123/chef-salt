@@ -89,5 +89,9 @@ describe 'salt::master' do
     it 'enable salt-api service' do
       expect(chef_run).to enable_service('salt-api')
     end
+
+    it 'install chef_gem salt-api' do
+      expect(chef_run).to install_chef_gem('salt-api')
+    end
   end
 end
