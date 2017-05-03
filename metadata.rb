@@ -18,7 +18,7 @@ supports 'debian', '>= 7.0'
 end
 
 depends 'compat_resource', '>= 12.14.6'
-depends 'ohai', '~> 4.0'
+depends 'ohai', '>= 4.0'
 
 source_url 'https://github.com/shortdudey123/chef-salt'
 issues_url 'https://github.com/shortdudey123/chef-salt/issues'
