@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the Salt Cookbook
 ## Unreleased
 - **[PR #46](https://github.com/shortdudey123/chef-salt/pull/46)** - Remove RHEL 5 / Ubuntu 12.04 support and testing
 - **[PR #47](https://github.com/shortdudey123/chef-salt/pull/47)** - Relax ohai cookbook requirement
+- **[PR #48](https://github.com/shortdudey123/chef-salt/pull/48)** - Update test-kitchen OS minor versions
 
 ## 3.0.0 (2017-01-10)
 - **[PR #39](https://github.com/shortdudey123/chef-salt/pull/39)** - Remove apt and yum cookbooks for compat_resource
