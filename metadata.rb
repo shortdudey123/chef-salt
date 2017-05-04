@@ -1,7 +1,7 @@
 name             'salt'
 maintainer       'Grant Ridder'
 maintainer_email 'shortdudey123@gmail.com'
-license          'Apache 2.0'
+license          'Apache-2.0'
 description      'Installs and configures Salt'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '3.0.0'
