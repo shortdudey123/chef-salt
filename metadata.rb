@@ -4,7 +4,7 @@ maintainer_email 'shortdudey123@gmail.com'
 license          'Apache-2.0'
 description      'Installs and configures Salt'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '3.0.0'
+version          '4.0.0'
 
 recipe 'salt::master', 'Installs and configures a Salt master'
 recipe 'salt::minion', 'Installs and configures a Salt minion'
@@ -14,7 +14,7 @@ supports 'fedora', '>= 19.0'
 supports 'debian', '>= 7.0'
 
 %w(redhat centos scientific amazon oracle).each do |os|
-  supports os, '>= 5.0'
+  supports os, '>= 6.0'
 end
 
 depends 'compat_resource', '>= 12.14.6'
